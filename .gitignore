@@ -176,3 +176,4 @@ sam*.pth
 **/*.ipynb_aml_checkpoints*
 **/*amltmp
 avatar/video/.DS_Store
+avatar/interactive/data/product-catalog-vectors.json
