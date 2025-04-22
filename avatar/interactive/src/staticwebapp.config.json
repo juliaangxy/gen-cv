@@ -1,6 +1,6 @@
 {
     "globalHeaders": {
-      "Access-Control-Allow-Origin": "https://ashy-meadow-0dbecea00.6.azurestaticapps.net",
+      "Access-Control-Allow-Origin": "*",
       "Access-Control-Allow-Methods": "POST, GET, OPTIONS"
     }
   }
