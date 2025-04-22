@@ -19,7 +19,7 @@ subscription_key = os.getenv("AZURE_SPEECH_API_KEY")
 region = os.getenv("AZURE_SPEECH_REGION")
 search_endpoint = os.getenv("AZURE_SEARCH_ENDPOINT")
 search_key = os.getenv("AZURE_SEARCH_API_KEY") 
-search_api_version = '2023-07-01-Preview'
+search_api_version = os.getenv("AZURE_SEARCH_API_VERSION")
 search_index_name = os.getenv("AZURE_SEARCH_INDEX")
 bing_key = os.getenv("BING_KEY")
 search_url = os.getenv("BING_SEARCH_URL")
@@ -36,6 +36,7 @@ database_connection_string = server_connection_string + f"Database={sql_db_name}
 # Azure Open AI
 deployment = os.environ["AZURE_OPENAI_CHAT_DEPLOYMENT"]
 embeddings_deployment = os.getenv("AZURE_OPENAI_EMBEDDINGS_DEPLOYMENT")
+embeddings_api_version = os.getenv("AZURE_OPENAI_EMBEDDINGS_API_VERSION")
 
 temperature = 0.7
 
@@ -169,6 +170,8 @@ def get_product_information(user_question, categories='*', top_k=1):
     if categories != '*':
         data["filter"] = f"category eq '{categories}'"
 
+    openai.api_version = embeddings_api_version
+    openai.api_type = "azure"
     results = requests.post(url, headers=headers, data=json.dumps(data))    
     results_json = results.json()
 
@@ -216,7 +219,7 @@ def display_product_info(product_info, display_size=40):
 def generate_embeddings(text):
     """ Generate embeddings for an input string using embeddings API """
 
-    url = f"{endpoint}/openai/deployments/{embeddings_deployment}/embeddings?api-version=2023-05-15"
+    url = f"{endpoint}/openai/deployments/{embeddings_deployment}/embeddings?api-version={embeddings_api_version}}"
 
     headers = {
         "Content-Type": "application/json",
@@ -224,7 +227,8 @@ def generate_embeddings(text):
     }
 
     data = {"input": text}
-
+    openai.api_version = embeddings_api_version
+    openai.api_type = "azure"
     response = requests.post(url, headers=headers, data=json.dumps(data)).json()
     return response['data'][0]['embedding']
 
