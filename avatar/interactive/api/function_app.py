@@ -518,7 +518,7 @@ def get_ice_server_token(req: Request) -> JSONResponse:
     token_endpoint = f"https://{region}.tts.speech.microsoft.com/cognitiveservices/avatar/relay/token/v1"
 
     # Make HTTP request with subscription key as header
-    response = requests.get(token_endpoint, headers={"Ocp-Apim-Subscription-Key": subscription_key})
+    response = requests.post(token_endpoint, headers={"Ocp-Apim-Subscription-Key": subscription_key})
 
     if response.status_code == 200:
         return JSONResponse(

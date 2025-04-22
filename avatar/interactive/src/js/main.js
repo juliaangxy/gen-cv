@@ -364,8 +364,7 @@ window.startSession = () => {
   })
     .then(async (res) => {
       if (!res.ok) {
-        // throw new Error(`Failed to fetch speech token: ${res.status} ${res.statusText}`);
-        throw new Error(`Failed to fetch speech token: ${res}`);
+        throw new Error(`Failed to fetch speech token: ${res.status} ${res.statusText}`);
       }
       const responseJson = await res.json();
       speechSynthesisConfig.authorizationToken = responseJson.token;
