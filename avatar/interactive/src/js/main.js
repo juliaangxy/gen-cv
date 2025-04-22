@@ -359,7 +359,7 @@ window.startSession = () => {
   speechSynthesisConfig.speechSynthesisVoiceName = TTSVoice;
   document.getElementById("playVideo").className = "round-button-hide";
 
-  fetch("/api/get-speech-token?region="+CogSvcRegion, {
+  fetch("/api/get-speech-token", {
     method: "GET",
   })
     .then(async (res) => {
