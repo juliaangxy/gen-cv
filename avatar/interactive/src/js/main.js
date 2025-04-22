@@ -40,7 +40,7 @@ let token
 function setupWebRTC() {
   // Create WebRTC peer connection
   fetch("/api/get-ice-server-token", {
-    method: "POST"
+    method: "GET"
   })
     .then(async res => {
       const reponseJson = await res.json()
