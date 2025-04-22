@@ -324,12 +324,12 @@ function connectToAvatarService() {
     case "Lisa":
       TalkingAvatarStyle = "casual-sitting"
       break
-    case "Meg":
-      TalkingAvatarStyle = "casual"
-      break
-    case "Mark":
-      TalkingAvatarStyle = "formal"
-      break
+    // case "Meg":
+    //   TalkingAvatarStyle = "casual"
+    //   break
+    // case "Mark":
+    //   TalkingAvatarStyle = "formal"
+    //   break
      
   }
 
@@ -350,29 +350,38 @@ function connectToAvatarService() {
 window.startSession = () => {
   var iconElement = document.createElement("i");
   iconElement.className = "fa fa-spinner fa-spin";
-  iconElement.id = "loadingIcon"
+  iconElement.id = "loadingIcon";
   var parentElement = document.getElementById("playVideo");
   parentElement.prepend(iconElement);
 
-  TTSVoice = document.getElementById("avatar-voice").value
+  TTSVoice = document.getElementById("avatar-voice").value;
 
-  speechSynthesisConfig.speechSynthesisVoiceName = TTSVoice
-  document.getElementById('playVideo').className = "round-button-hide"
+  speechSynthesisConfig.speechSynthesisVoiceName = TTSVoice;
+  document.getElementById("playVideo").className = "round-button-hide";
 
-  fetch("/api/get-speech-token", {
-    method: "GET"
+  fetch(`/api/get-speech-token?region=${CogSvcRegion}`, {
+    method: "GET",
   })
-    .then(async res => {
-      const responseJson = await res.json()
+    .then(async (res) => {
+      if (!res.ok) {
+        throw new Error(`Failed to fetch speech token: ${res.status} ${res.statusText}`);
+      }
+      const responseJson = await res.json();
       speechSynthesisConfig.authorizationToken = responseJson.token;
-      token = responseJson.token
+      token = responseJson.token;
     })
     .then(() => {
-      speechSynthesizer = new SpeechSDK.SpeechSynthesizer(speechSynthesisConfig, null)
-      connectToAvatarService()
-      setupWebRTC()
+      speechSynthesizer = new SpeechSDK.SpeechSynthesizer(speechSynthesisConfig, null);
+      connectToAvatarService();
+      setupWebRTC();
     })
-}
+    .catch((error) => {
+      console.error("Error fetching speech token:", error);
+      alert("Failed to start session. Please try again.");
+      document.getElementById("playVideo").className = "round-button";
+      document.getElementById("loadingIcon").remove();
+    });
+};
 
 async function greeting() {
   text = `Hi, my name is ${TalkingAvatarCharacter}. How can I help you?`;
