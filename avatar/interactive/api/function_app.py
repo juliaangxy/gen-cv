@@ -219,7 +219,7 @@ def display_product_info(product_info, display_size=40):
 def generate_embeddings(text):
     """ Generate embeddings for an input string using embeddings API """
 
-    url = f"{endpoint}/openai/deployments/{embeddings_deployment}/embeddings?api-version={embeddings_api_version}}"
+    url = f"{endpoint}/openai/deployments/{embeddings_deployment}/embeddings?api-version={embeddings_api_version}"
 
     headers = {
         "Content-Type": "application/json",
