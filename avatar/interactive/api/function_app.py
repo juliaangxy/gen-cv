@@ -116,23 +116,23 @@ tools = [
             }
         }
     },
-    {
-        "type": "function",
-        "function": {
-            "name": "bing_web_search",
-            "description": "Search the web for questions about recent events, news or outdoor activities related forecasts. Use only if the requested information is not already available in the conversation context.",
-            "parameters": {
-                "type": "object",
-                "properties": {
-                    "search_term": {
-                        "type": "string",
-                        "description": "User question optimized for a web search engine (examples: How will the weather be like this weekend? Current hiking restrictions in the Grand Canyon, etc.)"
-                    },
-                },
-                "required": ["search_term"],
-            }
-        }
-    }
+    # {
+    #     "type": "function",
+    #     "function": {
+    #         "name": "bing_web_search",
+    #         "description": "Search the web for questions about recent events, news or outdoor activities related forecasts. Use only if the requested information is not already available in the conversation context.",
+    #         "parameters": {
+    #             "type": "object",
+    #             "properties": {
+    #                 "search_term": {
+    #                     "type": "string",
+    #                     "description": "User question optimized for a web search engine (examples: How will the weather be like this weekend? Current hiking restrictions in the Grand Canyon, etc.)"
+    #                 },
+    #             },
+    #             "required": ["search_term"],
+    #         }
+    #     }
+    # }
 ]
 
 
@@ -216,7 +216,7 @@ def display_product_info(product_info, display_size=40):
 def generate_embeddings(text):
     """ Generate embeddings for an input string using embeddings API """
 
-    url = f"{endpoint}/openai/deployments/{embeddings_deployment}/embeddings?api-version=2023-09-01-preview"
+    url = f"{endpoint}/openai/deployments/{embeddings_deployment}/embeddings?api-version=2023-05-15"
 
     headers = {
         "Content-Type": "application/json",
@@ -232,50 +232,50 @@ def remove_html_tags(html_text):
     soup = BeautifulSoup(html_text, "html.parser")
     return soup.get_text()
 
-def bing_web_search(search_term):
-    """Searches for news and webpages using the Bing Search API and returns matches in a string. Uses sinippets from search engine only. No scraping of web sites."""
-    logging.info(f'Searching for: {search_term}')
+# def bing_web_search(search_term):
+#     """Searches for news and webpages using the Bing Search API and returns matches in a string. Uses sinippets from search engine only. No scraping of web sites."""
+#     logging.info(f'Searching for: {search_term}')
 
-    # bing search request
-    headers = {"Ocp-Apim-Subscription-Key": bing_key}
-    params = {"q": search_term, "textDecorations": True, "textFormat": "HTML", "count" : 5,}
-    response = requests.get(search_url, headers=headers, params=params)
-    response.raise_for_status()
-    search_results = response.json()
+#     # bing search request
+#     headers = {"Ocp-Apim-Subscription-Key": bing_key}
+#     params = {"q": search_term, "textDecorations": True, "textFormat": "HTML", "count" : 5,}
+#     response = requests.get(search_url, headers=headers, params=params)
+#     response.raise_for_status()
+#     search_results = response.json()
 
-    # consolidate news and webpage hits into string
-    results_str = f"Here are the web search search results for the user query: {search_term}\nThe search engine returned news and links to websites."
+#     # consolidate news and webpage hits into string
+#     results_str = f"Here are the web search search results for the user query: {search_term}\nThe search engine returned news and links to websites."
 
-    # Parsing news
-    if 'news' in search_results:
-        results_str += "\n*** News: ***"
-        news = search_results['news']['value']
+#     # Parsing news
+#     if 'news' in search_results:
+#         results_str += "\n*** News: ***"
+#         news = search_results['news']['value']
 
-        for index, result in enumerate(news):
-            news_str = f"""
-        News {index + 1}/{len(news)}:
-        Title: {remove_html_tags(result.get('name', 'No title available'))}
-        Description: {remove_html_tags(result.get('description', 'No snippet available'))}
-        Provider: {result['provider'][0].get('name', 'No provider name available')}
-        URL: {result.get('url', 'No URL available')}
-        """
-            results_str += news_str
+#         for index, result in enumerate(news):
+#             news_str = f"""
+#         News {index + 1}/{len(news)}:
+#         Title: {remove_html_tags(result.get('name', 'No title available'))}
+#         Description: {remove_html_tags(result.get('description', 'No snippet available'))}
+#         Provider: {result['provider'][0].get('name', 'No provider name available')}
+#         URL: {result.get('url', 'No URL available')}
+#         """
+#             results_str += news_str
 
-    # Parsing webpage hits
-    results_str += "\n*** Web pages:***"
-    webpages = search_results['webPages']['value']
+#     # Parsing webpage hits
+#     results_str += "\n*** Web pages:***"
+#     webpages = search_results['webPages']['value']
 
-    for index, result in enumerate(webpages):
-        news_str = f"""
-    Webpage {index + 1}/{len(webpages)}:
-    Title: {result.get('name', 'No title available')}
-    Snippet: {remove_html_tags(result.get('snippet', 'No snippet available'))}
-    Site name: {result.get('siteName', 'No site name available')}
-    URL: {result.get('url', 'No URL available')}
-    """
-        results_str += news_str
+#     for index, result in enumerate(webpages):
+#         news_str = f"""
+#     Webpage {index + 1}/{len(webpages)}:
+#     Title: {result.get('name', 'No title available')}
+#     Snippet: {remove_html_tags(result.get('snippet', 'No snippet available'))}
+#     Site name: {result.get('siteName', 'No site name available')}
+#     URL: {result.get('url', 'No URL available')}
+#     """
+#         results_str += news_str
 
-    return results_str
+#     return results_str
 
 
 
@@ -441,7 +441,7 @@ async def stream_processor(response, messages):
 
                             available_functions = {
                                 "get_product_information": get_product_information,
-                                "bing_web_search": bing_web_search,
+                                # "bing_web_search": bing_web_search,
                                 "get_bonus_points": get_bonus_points,
                                 "get_order_details": get_order_details,
                                 "order_product": order_product
