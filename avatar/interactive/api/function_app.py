@@ -549,4 +549,9 @@ def get_speech_token(req: Request) -> JSONResponse:
             headers={"Content-Type": "application/json"}
         )
     else:
-        return func.HttpResponse(response.status_code)
+        # return func.HttpResponse(response.status_code)
+        return JSONResponse(
+            content = {"token": response.text},
+            status_code=response.status_code,
+            headers={"Content-Type": "application/json"}
+        )
