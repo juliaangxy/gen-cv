@@ -360,7 +360,7 @@ window.startSession = () => {
   document.getElementById("playVideo").className = "round-button-hide";
 
   fetch("/api/get-speech-token", {
-    method: "GET",
+    method: "POST",
   })
     .then(async (res) => {
       if (!res.ok) {
