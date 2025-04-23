@@ -171,18 +171,18 @@ function handleUserQuery(userQuery, userQueryHTML) {
           let chunkString = new TextDecoder().decode(value, { stream: true })
           if (previousChunkString !== '' && previousChunkString !== null) {
             // Concatenate the previous chunk string in case it is incomplete
-            console.log('previousChunkString', previousChunkString)
-            console.log('chunkString', chunkString)
             chunkString = previousChunkString + chunkString
           }
-
-          new TextDecoder().decode(value, { stream: true, json: true})
+          console.log('unfiltered chunkString', chunkString)
 
           try {
-            responseToken = chunkString
-            console.log('responseToken', responseToken)
+            // responseToken = chunkString
+            // console.log('responseToken', responseToken)
             
-            if (responseToken !== undefined && responseToken !== null) {
+            // if (responseToken !== undefined && responseToken !== null) {
+            if (chunkString !== null) {
+              responseToken = chunkString
+              console.log('responseToken', responseToken)
               try {
                 const isObject = (x) => typeof x === 'object' && !Array.isArray(x) && x !== null
                 console.log(responseToken, typeof responseToken)
