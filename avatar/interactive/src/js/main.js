@@ -161,6 +161,7 @@ function handleUserQuery(userQuery, userQueryHTML) {
       // Function to recursively read chunks from the stream
       function read(previousChunkString = '') {
         return reader.read().then(({ value, done }) => {
+          console.log("Raw Value:", value);
           // Check if there is still data to read
           if (done) {
             // Stream complete
