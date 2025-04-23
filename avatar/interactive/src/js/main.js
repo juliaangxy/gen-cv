@@ -310,7 +310,7 @@ function stopSpeaking() {
 
 
 // Connect to TTS Avatar API
-function connectToAvatarService() {
+function connectToAvatarService(avatarName) {
   // Construct TTS Avatar service request
   let videoCropTopLeftX = 600
   let videoCropBottomRightX = 1320
@@ -319,16 +319,16 @@ function connectToAvatarService() {
   const videoFormat = new SpeechSDK.AvatarVideoFormat()
   videoFormat.setCropRange(new SpeechSDK.Coordinate(videoCropTopLeftX, 0), new SpeechSDK.Coordinate(videoCropBottomRightX, 1080));
 
-  TalkingAvatarCharacter = document.getElementById("avatar-name").value
+  TalkingAvatarCharacter = avatarName
   switch(TalkingAvatarCharacter) {
-    case "Lisa":
-      TalkingAvatarStyle = "casual-sitting"
-      break
+    // case "Lisa":
+    //   TalkingAvatarStyle = "casual-sitting"
+    //   break
     // case "Meg":
     //   TalkingAvatarStyle = "casual"
     //   break
     // case "Mark":
-    //   TalkingAvatarStyle = "formal"
+    TalkingAvatarStyle = "formal"
     //   break
      
   }
@@ -354,7 +354,12 @@ window.startSession = () => {
   var parentElement = document.getElementById("playVideo");
   parentElement.prepend(iconElement);
 
-  TTSVoice = document.getElementById("avatar-voice").value;
+  const avatarName = document.getElementById("avatar-name").value;
+  console.log("Selected Avatar Name:", avatarName);
+  const avatarVoice = document.getElementById("avatar-voice").value;
+  console.log("Selected Avatar Voice:", avatarVoice);
+
+  TTSVoice = avatarVoice;
 
   speechSynthesisConfig.speechSynthesisVoiceName = TTSVoice;
   document.getElementById("playVideo").className = "round-button-hide";
@@ -372,7 +377,7 @@ window.startSession = () => {
     })
     .then(() => {
       speechSynthesizer = new SpeechSDK.SpeechSynthesizer(speechSynthesisConfig, null);
-      connectToAvatarService();
+      connectToAvatarService(avatarName);
       setupWebRTC();
     })
     .catch((error) => {

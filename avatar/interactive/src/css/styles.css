@@ -40,9 +40,11 @@ body {
     margin: 0;
     height: 100%;
     word-break: break-word;
-    background-image: url("../images/pexels-ian-beckley-2440024.png");
+    /* background-image: url("../images/pexels-ian-beckley-2440024.png");
+    background: linear-gradient(to bottom, red, black); 
     background-repeat: no-repeat;
     background-size: cover;
+     */
 }
 
 #loginOverlay {
@@ -50,14 +52,15 @@ body {
     width: 100%;
     height: 100%;
     top: 0;
-    background-image: url("../images/pexels-ian-beckley-2440024.png");
+    /* background-image: url("../images/pexels-ian-beckley-2440024.png");
+    background: linear-gradient(to bottom, red, black); 
     background-repeat: no-repeat;
     background-size: cover;
-    
+     */
 }
 
 #gradientOverlay {
-    background: linear-gradient(180deg, rgba(43, 78, 98, 0.09) 0%, rgba(34, 63, 81, 0.80) 18.23%);
+    /* background: linear-gradient(180deg, rgba(43, 78, 98, 0.09) 0%, rgba(34, 63, 81, 0.80) 18.23%); */
     height: 100%;
     width: 100%;
     display: flex;
@@ -94,7 +97,7 @@ body {
 }
 
 .main {
-    background: linear-gradient(180deg, rgba(43, 78, 98, 0.09) 0%, rgba(34, 63, 81, 0.80) 18.23%);
+    /* background: linear-gradient(180deg, rgba(43, 78, 98, 0.09) 0%, rgba(34, 63, 81, 0.80) 18.23%); */
     padding: 1em;
     padding-bottom: 0px;
     height: 100%;
@@ -124,7 +127,8 @@ h6 {
 }
 
 button {
-    background-color: #0078D4;
+    /* background-color: #0078D4; */
+    background-color: #4d545a;
     border: none;
     border-radius: 2px;
     color: white;
@@ -138,7 +142,8 @@ button {
     border-radius: 50%;
     width: 48px;
     height: 48px;
-    background-color: lightblue;
+    /* background-color: lightblue; */
+    background-color: rgb(186, 186, 186);
     margin: 0 0 0 0;
 }
 
@@ -164,7 +169,8 @@ button {
     align-items: center;
     flex-shrink: 0;
     border-radius: 2px;
-    background: linear-gradient(274deg, #558EAE 0%, #07E997 124.9%);
+    /* background: linear-gradient(274deg, #558EAE 0%, #07E997 124.9%); */
+    background: linear-gradient(274deg, #bababa 0%, #196348 124.9%);
     font-weight: 600px;
 }
 
@@ -189,11 +195,13 @@ button {
 }
 
 button:active {
-    background-color: #0078D4;
+    /* background-color: #0078D4; */
+    background-color: ee1d1d;
 }
 
 button:hover {
-    background-color: #0078D4;
+    /* background-color: #0078D4; */
+    background-color: bababa;    
     cursor: pointer;
 }
 
@@ -202,7 +210,8 @@ button[disabled] {
 }
 
 button[disabled]:hover {
-    background-color: #0078D4;
+    /* background-color: #0078D4; */
+    background-color: bababa;
 }
 
 .record-card {
@@ -336,7 +345,8 @@ h1 span {
 }
 
 a {
-    color: #1D6EEE;
+    color: #ee1d1d;
+    /* color: #1D6EEE; */
     font-weight: 300;
     text-decoration: none;
 }
@@ -348,7 +358,8 @@ h1 a {
 }
 
 a:hover {
-    color: #3d85c6;
+    color: #bababa;
+    /* color: #3d85c6; */
     text-decoration: underline;
 }
 
