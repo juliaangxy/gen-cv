@@ -320,18 +320,18 @@ function connectToAvatarService(avatarName) {
   videoFormat.setCropRange(new SpeechSDK.Coordinate(videoCropTopLeftX, 0), new SpeechSDK.Coordinate(videoCropBottomRightX, 1080));
 
   TalkingAvatarCharacter = avatarName
-  switch(TalkingAvatarCharacter) {
-    // case "Lisa":
-    //   TalkingAvatarStyle = "casual-sitting"
-    //   break
-    // case "Meg":
-    //   TalkingAvatarStyle = "casual"
-    //   break
-    // case "Mark":
-    TalkingAvatarStyle = "formal"
-    //   break
+  // switch(TalkingAvatarCharacter) {
+  //   // case "Lisa":
+  //   //   TalkingAvatarStyle = "casual-sitting"
+  //   //   break
+  //   // case "Meg":
+  //   //   TalkingAvatarStyle = "casual"
+  //   //   break
+  //   // case "Mark":
+  //   // TalkingAvatarStyle = "formal"
+  //   //   break
      
-  }
+  // }
 
   const avatarConfig = new SpeechSDK.AvatarConfig(TalkingAvatarCharacter, TalkingAvatarStyle, videoFormat)
   avatarConfig.backgroundColor = backgroundColor
