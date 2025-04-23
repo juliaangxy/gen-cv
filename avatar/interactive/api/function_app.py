@@ -507,16 +507,17 @@ async def stream_openai_text(req: Request) -> StreamingResponse:
         tools=tools,
         stream=True
     )
+    return StreamingResponse(stream_processor(azure_open_ai_response, messages), media_type="text/event-stream")
 
-    if azure_open_ai_response.body is not None:
-        azure_open_ai_response = azure_open_ai_response.body
-        return StreamingResponse(stream_processor(azure_open_ai_response, messages), media_type="text/event-stream")
-    else:
-        return JSONResponse(
-            content = {"error": "No response from Azure OpenAI"},
-            status_code=500,
-            headers={"Content-Type": "application/json"}
-        )
+    # if azure_open_ai_response.body is not None:
+    #     azure_open_ai_response = azure_open_ai_response.body
+    #     return StreamingResponse(stream_processor(azure_open_ai_response, messages), media_type="text/event-stream")
+    # else:
+    #     return JSONResponse(
+    #         content = {"error": "No response from Azure OpenAI"},
+    #         status_code=500,
+    #         headers={"Content-Type": "application/json"}
+    #     )
 
 @app.route(route="get-ice-server-token", methods=[func.HttpMethod.GET, func.HttpMethod.POST])
 def get_ice_server_token(req: Request) -> JSONResponse:

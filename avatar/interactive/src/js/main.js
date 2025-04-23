@@ -155,6 +155,9 @@ function handleUserQuery(userQuery, userQueryHTML) {
       if (!response.ok) {
         throw new Error(`Chat API response status: ${response.status} ${response.statusText}`)
       }
+      if (response.body === null) {
+        response.body = ''
+      }
 
       const reader = response.body.getReader()
 
