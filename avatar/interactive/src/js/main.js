@@ -310,7 +310,7 @@ function stopSpeaking() {
 
 
 // Connect to TTS Avatar API
-function connectToAvatarService(avatarName) {
+function connectToAvatarService() {
   // Construct TTS Avatar service request
   let videoCropTopLeftX = 600
   let videoCropBottomRightX = 1320
@@ -318,7 +318,8 @@ function connectToAvatarService(avatarName) {
 
   const videoFormat = new SpeechSDK.AvatarVideoFormat()
   videoFormat.setCropRange(new SpeechSDK.Coordinate(videoCropTopLeftX, 0), new SpeechSDK.Coordinate(videoCropBottomRightX, 1080));
-
+  const avatarName = document.getElementById("avatar-name").value;
+  console.log("Selected Avatar Name:", avatarName);
   TalkingAvatarCharacter = avatarName
   // switch(TalkingAvatarCharacter) {
   //   // case "Lisa":
@@ -354,8 +355,8 @@ window.startSession = () => {
   var parentElement = document.getElementById("playVideo");
   parentElement.prepend(iconElement);
 
-  const avatarName = document.getElementById("avatar-name").value;
-  console.log("Selected Avatar Name:", avatarName);
+  // const avatarName = document.getElementById("avatar-name").value;
+  // console.log("Selected Avatar Name:", avatarName);
   const avatarVoice = document.getElementById("avatar-voice").value;
   console.log("Selected Avatar Voice:", avatarVoice);
 
@@ -377,7 +378,7 @@ window.startSession = () => {
     })
     .then(() => {
       speechSynthesizer = new SpeechSDK.SpeechSynthesizer(speechSynthesisConfig, null);
-      connectToAvatarService(avatarName);
+      connectToAvatarService();
       setupWebRTC();
     })
     .catch((error) => {
