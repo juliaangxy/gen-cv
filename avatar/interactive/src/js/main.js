@@ -177,8 +177,10 @@ function handleUserQuery(userQuery, userQueryHTML) {
           new TextDecoder().decode(value, { stream: true, json: true})
 
           try {
-            responseToken = chunkString
-            console.log('responseToken', responseToken)
+            responseToken = str(chunkString)
+            console.log("Raw chunkString:", chunkString);
+            console.log("Parsed responseToken:", responseToken);
+            // console.log('responseToken', responseToken)
             
             if (responseToken !== undefined && responseToken !== null) {
               try {
