@@ -155,9 +155,9 @@ function handleUserQuery(userQuery, userQueryHTML) {
       if (!response.ok) {
         throw new Error(`Chat API response status: ${response.status} ${response.statusText}`)
       }
-      if (response.body === null) {
-        response.body = ''
-      }
+      // if (response.body === null) {
+      //   response.body = ''
+      // }
 
       const reader = response.body.getReader()
 
@@ -189,7 +189,9 @@ function handleUserQuery(userQuery, userQueryHTML) {
               try {
                 const isObject = (x) => typeof x === 'object' && !Array.isArray(x) && x !== null
                 console.log(responseToken, typeof responseToken)
-                product = JSON.parse(responseToken)
+                if (responseToken && responseToken.trim() !== "null") {
+                  product = JSON.parse(responseToken);
+                }
                 console.log(product, isObject(product), typeof product)
                 if (isObject(product)) {
                   addProductToChatHistory(product)
