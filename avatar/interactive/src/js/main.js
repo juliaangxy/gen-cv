@@ -161,7 +161,6 @@ function handleUserQuery(userQuery, userQueryHTML) {
       // Function to recursively read chunks from the stream
       function read(previousChunkString = '') {
         return reader.read().then(({ value, done }) => {
-          console.log("Raw Value:", value);
           // Check if there is still data to read
           if (done) {
             // Stream complete
@@ -170,18 +169,18 @@ function handleUserQuery(userQuery, userQueryHTML) {
 
           // Process the chunk of data (value)
           let chunkString = new TextDecoder().decode(value, { stream: true })
-          if (previousChunkString !== '') {
+          if (previousChunkString !== '' && previousChunkString !== null) {
             // Concatenate the previous chunk string in case it is incomplete
+            console.log('previousChunkString', previousChunkString)
+            console.log('chunkString', chunkString)
             chunkString = previousChunkString + chunkString
           }
 
           new TextDecoder().decode(value, { stream: true, json: true})
 
           try {
-            responseToken = String(chunkString)
-            console.log("Raw chunkString:", chunkString);
-            console.log("Parsed responseToken:", responseToken);
-            // console.log('responseToken', responseToken)
+            responseToken = chunkString
+            console.log('responseToken', responseToken)
             
             if (responseToken !== undefined && responseToken !== null) {
               try {
