@@ -484,10 +484,15 @@ async def stream_processor(response, messages):
 
                         except Exception as e:
                             print(e)
+                else:
+                    continue
 
-            if delta.content: # Get remaining generated response if applicable
+            elif delta.content: # Get remaining generated response if applicable
                 await asyncio.sleep(0.01)
                 yield delta.content
+            
+            else:
+                continue
 
 
 # HTTP streaming Azure Function
@@ -495,9 +500,24 @@ async def stream_processor(response, messages):
 async def stream_openai_text(req: Request) -> StreamingResponse:
 
     body = await req.body()
+    # Ensure the request body is not null or empty
+    if not body:
+        return JSONResponse(
+            content={"error": "Request body is empty"},
+            status_code=400,
+            headers={"Content-Type": "application/json"}
+        )
 
     messages_obj = json.loads(body) if body else []
     messages = messages_obj['messages']
+
+    # Ensure messages are not empty
+    if not messages:
+        return JSONResponse(
+            content={"error": "Messages are missing in the request body"},
+            status_code=400,
+            headers={"Content-Type": "application/json"}
+        )
 
     azure_open_ai_response = await client.chat.completions.create(
         model=deployment,
@@ -510,9 +530,9 @@ async def stream_openai_text(req: Request) -> StreamingResponse:
     )
     return StreamingResponse(stream_processor(azure_open_ai_response, messages), media_type="text/event-stream")
 
-    # if azure_open_ai_response.body is not None:
-    #     azure_open_ai_response = azure_open_ai_response.body
-    #     return StreamingResponse(stream_processor(azure_open_ai_response, messages), media_type="text/event-stream")
+    # if azure_open_ai_response.body is None:
+    #     azure_open_ai_ = azure_open_ai_response.body
+    #     returnngResponse(stream_processor(azure_open_ai_response, messages), media_type="text/event-stream")
     # else:
     #     return JSONResponse(
     #         content = {"error": "No response from Azure OpenAI"},
@@ -561,9 +581,4 @@ def get_speech_token(req: Request) -> JSONResponse:
             headers={"Content-Type": "application/json"}
         )
     else:
-        # return func.HttpResponse(response.status_code)
-        return JSONResponse(
-            content = {"token": response.text},
-            status_code=response.status_code,
-            headers={"Content-Type": "application/json"}
-        )
+        return func.HttpResponse(response.status_code)

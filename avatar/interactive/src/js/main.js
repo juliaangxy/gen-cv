@@ -211,7 +211,7 @@ function handleUserQuery(userQuery, userQueryHTML) {
       // if (response.body === null) {
       //   response.body = ''
       // }
-      console.log('response', response)
+      // console.log('response', response)
 
       const reader = response.body.getReader()
       // const reader = response.choices[0].message.content.getReader()
@@ -242,8 +242,8 @@ function handleUserQuery(userQuery, userQueryHTML) {
           }
 
           try {
-            responseToken = chunkString
-            console.log('responseToken', responseToken)
+            // responseToken = chunkString
+            // console.log('responseToken', responseToken)
             
             // if (responseToken !== undefined && responseToken !== null) {
             if (chunkString !== null) {
