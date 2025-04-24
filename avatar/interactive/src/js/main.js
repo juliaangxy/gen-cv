@@ -241,6 +241,7 @@ function handleUserQuery(userQuery, userQueryHTML) {
             console.log("Skipping null or empty chunk.");
             return read(); // Skip this chunk and continue reading
           }
+          chunkString = chunkString.replace(/(null)+/g, "");
 
           try {
             // responseToken = chunkString
