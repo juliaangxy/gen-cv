@@ -53,17 +53,6 @@ async function initializeSpeechSynthesisConfig() {
   }
 }
 
-// Call the function to initialize the configuration
-initializeSpeechSynthesisConfig()
-  .then(config => {
-    console.log("Speech synthesis configuration is ready to use.");
-    // Use the `config` object as needed
-  })
-  .catch(error => {
-    console.error("Initialization failed:", error.message);
-    alert("Failed to initialize speech synthesis configuration. Please check your network or Azure configuration.");
-  });
-
 // Global objects
 var speechSynthesizer
 var avatarSynthesizer
@@ -413,6 +402,18 @@ window.startSession = () => {
   console.log("Selected Avatar Voice:", avatarVoice);
 
   TTSVoice = avatarVoice;
+
+    // Call the function to initialize the configuration
+  initializeSpeechSynthesisConfig()
+  .then(config => {
+    console.log("Speech synthesis configuration is ready to use.");
+    // Use the `config` object as needed
+    speechSynthesisConfig = config; 
+  })
+  .catch(error => {
+    console.error("Initialization failed:", error.message);
+    alert("Failed to initialize speech synthesis configuration. Please check your network or Azure configuration.");
+  });
 
   speechSynthesisConfig.speechSynthesisVoiceName = TTSVoice;
   document.getElementById("playVideo").className = "round-button-hide";
