@@ -176,49 +176,53 @@ function handleUserQuery(userQuery, userQueryHTML) {
             // Concatenate the previous chunk string in case it is incomplete
             chunkString = previousChunkString + chunkString
           }
+
+          new TextDecoder().decode(value, { stream: true, json: true})
           console.log('unfiltered chunkString', chunkString)
 
           try {
-            // responseToken = chunkString
-            // console.log('responseToken', responseToken)
+            responseToken = chunkString
+            console.log('responseToken', responseToken)
             
             // if (responseToken !== undefined && responseToken !== null) {
             if (chunkString !== null) {
               responseToken = chunkString
-              console.log('responseToken', responseToken)
-              try {
-                const isObject = (x) => typeof x === 'object' && !Array.isArray(x) && x !== null
-                console.log(responseToken, typeof responseToken)
-                if (responseToken && responseToken.trim() !== "null") {
-                  product = JSON.parse(responseToken);
+              if (responseToken !== undefined){
+                console.log('responseToken', responseToken)
+                try {
+                  const isObject = (x) => typeof x === 'object' && !Array.isArray(x) && x !== null
+                  console.log(responseToken, typeof responseToken)
+                  if (responseToken && responseToken.trim() !== "null") {
+                    product = JSON.parse(responseToken);
+                  }
+                  console.log(product, isObject(product), typeof product)
+                  if (isObject(product)) {
+                    addProductToChatHistory(product)
+                    console.log(product)
+                    responseToken = ''
+                  }
+                } catch (error) {
+                  console.log('Error parsing product:', error)
                 }
-                console.log(product, isObject(product), typeof product)
-                if (isObject(product)) {
-                  addProductToChatHistory(product)
-                  console.log(product)
-                  responseToken = ''
-                }
-              } catch (error) {
-                console.log('Error parsing product:', error)
-              }
-              assistantReply += responseToken // build up the assistant message
-              displaySentence += responseToken // build up the display sentence
+                assistantReply += responseToken // build up the assistant message
+                displaySentence += responseToken // build up the display sentence
 
-              if (responseToken === '\n' || responseToken === '\n\n') {
-                speak(spokenSentence.trim())
-                spokenSentence = ''
-              } else {
-                responseToken = responseToken.replace(/\n/g, '')
-                responseToken = responseToken.replace(/[*\uD83C-\uDBFF\uDC00-\uDFFF]+/g, '');
-                spokenSentence += responseToken // build up the spoken sentence
+                if (responseToken === '\n' || responseToken === '\n\n') {
+                  speak(spokenSentence.trim())
+                  spokenSentence = ''
+                } else {
+                  responseToken = responseToken.replace(/\n/g, '')
+                  responseToken = responseToken.replace(/[*\uD83C-\uDBFF\uDC00-\uDFFF]+/g, '');
+                  spokenSentence += responseToken // build up the spoken sentence
 
-                if (responseToken.length === 1 || responseToken.length === 2) {
-                  for (let i = 0; i < sentenceLevelPunctuations.length; ++i) {
-                    let sentenceLevelPunctuation = sentenceLevelPunctuations[i]
-                    if (responseToken.startsWith(sentenceLevelPunctuation)) {
-                      speak(spokenSentence.trim())
-                      spokenSentence = ''
-                      break
+                  if (responseToken.length === 1 || responseToken.length === 2) {
+                    for (let i = 0; i < sentenceLevelPunctuations.length; ++i) {
+                      let sentenceLevelPunctuation = sentenceLevelPunctuations[i]
+                      if (responseToken.startsWith(sentenceLevelPunctuation)) {
+                        speak(spokenSentence.trim())
+                        spokenSentence = ''
+                        break
+                      }
                     }
                   }
                 }
