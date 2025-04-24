@@ -58,14 +58,14 @@ function initializeSpeechSynthesisConfigSync() {
   }
 }
 
-try {
-  const speechSynthesisConfig = initializeSpeechSynthesisConfigSync();
-  console.log("Speech synthesis configuration is ready to use.");
-  // Use the `speechSynthesisConfig` object as needed
-} catch (error) {
-  console.error("Initialization failed:", error.message);
-  alert("Failed to initialize speech synthesis configuration. Please check your network or Azure configuration.");
-}
+// try {
+//   const speechSynthesisConfig = initializeSpeechSynthesisConfigSync();
+//   console.log("Speech synthesis configuration is ready to use.");
+//   // Use the `speechSynthesisConfig` object as needed
+// } catch (error) {
+//   console.error("Initialization failed:", error.message);
+//   alert("Failed to initialize speech synthesis configuration. Please check your network or Azure configuration.");
+// }
 
 // Global objects
 var speechSynthesizer
@@ -411,6 +411,15 @@ window.startSession = () => {
   parentElement.prepend(iconElement);
 
   TTSVoice = document.getElementById("avatar-voice").value
+
+  try {
+    const speechSynthesisConfig = initializeSpeechSynthesisConfigSync();
+    console.log("Speech synthesis configuration is ready to use.");
+    // Use the `speechSynthesisConfig` object as needed
+  } catch (error) {
+    console.error("Initialization failed:", error.message);
+    alert("Failed to initialize speech synthesis configuration. Please check your network or Azure configuration.");
+  }
 
   speechSynthesisConfig.speechSynthesisVoiceName = TTSVoice
   document.getElementById('playVideo').className = "round-button-hide"
