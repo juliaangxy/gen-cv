@@ -159,7 +159,8 @@ function handleUserQuery(userQuery, userQueryHTML) {
       //   response.body = ''
       // }
 
-      const reader = response.body.getReader()
+      // const reader = response.body.getReader()
+      const reader = response.choices[0].message.content.getReader()
 
       // Function to recursively read chunks from the stream
       function read(previousChunkString = '') {
