@@ -27,7 +27,7 @@ const maxRetries = 5; // Maximum number of retries
 const retryDelay = 1000; // Delay between retries in milliseconds
 let retryCount = 0;
 
-async function initializeSpeechSynthesisConfig() {
+function initializeSpeechSynthesisConfig() {
   while (retryCount < maxRetries) {
     try {
       // Construct the WebSocket URL
@@ -52,6 +52,18 @@ async function initializeSpeechSynthesisConfig() {
     }
   }
 }
+
+// Call the function to initialize the configuration
+initializeSpeechSynthesisConfig()
+.then(config => {
+  console.log("Speech synthesis configuration is ready to use.");
+  // Use the `config` object as needed
+  speechSynthesisConfig = config; // Assign the returned config to a global or local variable
+})
+.catch(error => {
+  console.error("Initialization failed:", error.message);
+  alert("Failed to initialize speech synthesis configuration. Please check your network or Azure configuration.");
+});
 
 // Global objects
 var speechSynthesizer
@@ -403,17 +415,17 @@ window.startSession = () => {
 
   TTSVoice = avatarVoice;
 
-    // Call the function to initialize the configuration
-  initializeSpeechSynthesisConfig()
-  .then(config => {
-    console.log("Speech synthesis configuration is ready to use.");
-    // Use the `config` object as needed
-    speechSynthesisConfig = config; 
-  })
-  .catch(error => {
-    console.error("Initialization failed:", error.message);
-    alert("Failed to initialize speech synthesis configuration. Please check your network or Azure configuration.");
-  });
+  //   // Call the function to initialize the configuration
+  // initializeSpeechSynthesisConfig()
+  // .then(config => {
+  //   console.log("Speech synthesis configuration is ready to use.");
+  //   // Use the `config` object as needed
+  //   speechSynthesisConfig = config; // Assign the returned config to a global or local variable
+  // })
+  // .catch(error => {
+  //   console.error("Initialization failed:", error.message);
+  //   alert("Failed to initialize speech synthesis configuration. Please check your network or Azure configuration.");
+  // });
 
   speechSynthesisConfig.speechSynthesisVoiceName = TTSVoice;
   document.getElementById("playVideo").className = "round-button-hide";
