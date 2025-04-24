@@ -190,11 +190,11 @@ function handleUserQuery(userQuery, userQueryHTML) {
   if (isSpeaking) {
     stopSpeaking()
   }
-
+  console.log('messages', messages)
   let body = JSON.stringify({
     messages: messages
   })
-
+  console.log('body', body)
   let assistantReply = ''
   let toolContent = ''
   let spokenSentence = ''
