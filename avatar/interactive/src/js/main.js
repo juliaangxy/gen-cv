@@ -27,7 +27,9 @@ const maxRetries = 5; // Maximum number of retries
 const retryDelay = 1000; // Delay between retries in milliseconds
 let retryCount = 0;
 
-function initializeSpeechSynthesisConfig() {
+function initializeSpeechSynthesisConfigSync() {
+  let retryCount = 0;
+
   while (retryCount < maxRetries) {
     try {
       // Construct the WebSocket URL
@@ -47,23 +49,23 @@ function initializeSpeechSynthesisConfig() {
         throw new Error("Failed to initialize speech synthesis configuration after multiple attempts.");
       }
 
-      // Wait before retrying
-      await new Promise(resolve => setTimeout(resolve, retryDelay));
+      // Blocking delay before retrying
+      const start = Date.now();
+      while (Date.now() - start < retryDelay) {
+        // Busy-wait loop for retryDelay milliseconds
+      }
     }
   }
 }
 
-// Call the function to initialize the configuration
-initializeSpeechSynthesisConfig()
-.then(config => {
+try {
+  const speechSynthesisConfig = initializeSpeechSynthesisConfigSync();
   console.log("Speech synthesis configuration is ready to use.");
-  // Use the `config` object as needed
-  speechSynthesisConfig = config; // Assign the returned config to a global or local variable
-})
-.catch(error => {
+  // Use the `speechSynthesisConfig` object as needed
+} catch (error) {
   console.error("Initialization failed:", error.message);
   alert("Failed to initialize speech synthesis configuration. Please check your network or Azure configuration.");
-});
+}
 
 // Global objects
 var speechSynthesizer
@@ -404,9 +406,14 @@ function connectToAvatarService() {
 window.startSession = () => {
   var iconElement = document.createElement("i");
   iconElement.className = "fa fa-spinner fa-spin";
-  iconElement.id = "loadingIcon";
+  iconElement.id = "loadingIcon"
   var parentElement = document.getElementById("playVideo");
   parentElement.prepend(iconElement);
+
+  TTSVoice = document.getElementById("avatar-voice").value
+
+  speechSynthesisConfig.speechSynthesisVoiceName = TTSVoice
+  document.getElementById('playVideo').className = "round-button-hide"
 
   // const avatarName = document.getElementById("avatar-name").value;
   // console.log("Selected Avatar Name:", avatarName);
@@ -427,8 +434,8 @@ window.startSession = () => {
   //   alert("Failed to initialize speech synthesis configuration. Please check your network or Azure configuration.");
   // });
 
-  speechSynthesisConfig.speechSynthesisVoiceName = TTSVoice;
-  document.getElementById("playVideo").className = "round-button-hide";
+  speechSynthesisConfig.speechSynthesisVoiceName = TTSVoice
+  document.getElementById("playVideo").className = "round-button-hide"
 
   fetch("/api/get-speech-token", {
     method: "POST",
