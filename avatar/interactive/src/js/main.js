@@ -413,7 +413,7 @@ window.startSession = () => {
   TTSVoice = document.getElementById("avatar-voice").value
 
   try {
-    const speechSynthesisConfig = initializeSpeechSynthesisConfigSync();
+    speechSynthesisConfig = initializeSpeechSynthesisConfigSync();
     console.log("Speech synthesis configuration is ready to use.");
     // Use the `speechSynthesisConfig` object as needed
   } catch (error) {
