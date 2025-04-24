@@ -246,7 +246,7 @@ function handleUserQuery(userQuery, userQueryHTML) {
             // console.log('responseToken', responseToken)
             
             // if (responseToken !== undefined && responseToken !== null) {
-            if (chunkString !== null) {
+            if (chunkString !== null  || chunkString !== "null") {
               responseToken = chunkString
               if (responseToken !== undefined){
                 console.log('responseToken', responseToken)
