@@ -14,10 +14,11 @@ You are an AI assistant focused on delivering brief product details and assistin
 - IMPORTANT: Pay attention to the language the customer is using in their latest statement and ALWAYS respond in the same language!
 `
 
-var TTSVoice = "en-US-AvaMultilingualNeural" // Update this value if you want to use a different voices
-const CogSvcRegion = "southeastasia" // Fill your Azure cognitive services region here, e.g. westus2
-var TalkingAvatarCharacter = "Luna"
-var TalkingAvatarStyle = "formal"
+// var TTSVoice = "en-US-AvaMultilingualNeural" // Update this value if you want to use a different voices
+CogSvcRegion = "southeastasia" // Fill your Azure cognitive services region here, e.g. westus2
+// var TalkingAvatarCharacter = "Luna"
+// var TalkingAvatarStyle = "formal"
+TalkingAvatarStyle = "formal"
 const continuousRecording = false
 
 supported_languages = ["en-US", "zh-CN", "en-SG"] // The language detection engine supports a maximum of 4 languages
@@ -201,7 +202,8 @@ function handleUserQuery(userQuery, userQueryHTML) {
       // if (response.body === null) {
       //   response.body = ''
       // }
-
+      console.log('response', response)
+      
       const reader = response.body.getReader()
       // const reader = response.choices[0].message.content.getReader()
 
