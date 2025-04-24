@@ -235,6 +235,12 @@ function handleUserQuery(userQuery, userQueryHTML) {
           new TextDecoder().decode(value, { stream: true, json: true})
           console.log('unfiltered chunkString', chunkString)
 
+          // Filter out null or empty chunks
+          if (chunkString.trim() === "null" || chunkString.trim() === "") {
+            console.log("Skipping null or empty chunk.");
+            return read(); // Skip this chunk and continue reading
+          }
+
           try {
             responseToken = chunkString
             console.log('responseToken', responseToken)
@@ -251,7 +257,7 @@ function handleUserQuery(userQuery, userQueryHTML) {
                     product = JSON.parse(responseToken);
                   }
                   console.log(product, isObject(product), typeof product)
-                  if (isObject(product)) {
+                  if (product && product.image_url && isObject(product)) {
                     addProductToChatHistory(product)
                     console.log(product)
                     responseToken = ''
