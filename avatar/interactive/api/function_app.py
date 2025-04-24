@@ -503,6 +503,7 @@ async def stream_openai_text(req: Request) -> StreamingResponse:
         model=deployment,
         temperature=temperature,
         max_tokens=1000,
+        # max_completion_tokens=100000,
         messages=messages,
         tools=tools,
         stream=True
