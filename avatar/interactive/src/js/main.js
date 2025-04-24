@@ -22,7 +22,47 @@ const continuousRecording = false
 
 supported_languages = ["en-US", "zh-CN", "en-SG"] // The language detection engine supports a maximum of 4 languages
 
-const speechSynthesisConfig = SpeechSDK.SpeechConfig.fromEndpoint(new URL("wss://{region}.tts.speech.microsoft.com/cognitiveservices/websocket/v1?enableTalkingAvatar=true".replace("{region}", CogSvcRegion)))
+// const speechSynthesisConfig = SpeechSDK.SpeechConfig.fromEndpoint(new URL("wss://{region}.tts.speech.microsoft.com/cognitiveservices/websocket/v1?enableTalkingAvatar=true".replace("{region}", CogSvcRegion)))
+const maxRetries = 5; // Maximum number of retries
+const retryDelay = 1000; // Delay between retries in milliseconds
+let retryCount = 0;
+
+async function initializeSpeechSynthesisConfig() {
+  while (retryCount < maxRetries) {
+    try {
+      // Construct the WebSocket URL
+      const endpointUrl = `wss://${CogSvcRegion}.tts.speech.microsoft.com/cognitiveservices/websocket/v1?enableTalkingAvatar=true`;
+
+      // Attempt to initialize the SpeechConfig object
+      const speechSynthesisConfig = SpeechSDK.SpeechConfig.fromEndpoint(new URL(endpointUrl));
+
+      console.log("Speech synthesis configuration initialized successfully.");
+      return speechSynthesisConfig; // Return the successfully initialized config
+    } catch (error) {
+      retryCount++;
+      console.error(`Attempt ${retryCount} failed:`, error.message);
+
+      if (retryCount >= maxRetries) {
+        console.error("Max retries reached. Unable to initialize speech synthesis configuration.");
+        throw new Error("Failed to initialize speech synthesis configuration after multiple attempts.");
+      }
+
+      // Wait before retrying
+      await new Promise(resolve => setTimeout(resolve, retryDelay));
+    }
+  }
+}
+
+// Call the function to initialize the configuration
+initializeSpeechSynthesisConfig()
+  .then(config => {
+    console.log("Speech synthesis configuration is ready to use.");
+    // Use the `config` object as needed
+  })
+  .catch(error => {
+    console.error("Initialization failed:", error.message);
+    alert("Failed to initialize speech synthesis configuration. Please check your network or Azure configuration.");
+  });
 
 // Global objects
 var speechSynthesizer
