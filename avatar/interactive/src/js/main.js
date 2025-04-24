@@ -218,7 +218,7 @@ function handleUserQuery(userQuery, userQueryHTML) {
 
           // Process the chunk of data (value)
           let chunkString = new TextDecoder().decode(value, { stream: true })
-          if (previousChunkString !== '' && previousChunkString !== null) {
+          if (previousChunkString !== '') {
             // Concatenate the previous chunk string in case it is incomplete
             chunkString = previousChunkString + chunkString
           }
