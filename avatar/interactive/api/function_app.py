@@ -80,8 +80,8 @@ tools = [
     {
         "type": "function",
         "function": {
-            "name": "order_product",
-            "description": "Order a product based on the provided parameters",
+            "name": "redeem_product",
+            "description": "Redeem or order a product based on the provided parameters",
             "parameters": {
                 "type": "object",
                 "properties": {
@@ -337,7 +337,7 @@ def get_order_details(account_id):
     # Return the JSON object
     return json.dumps(order_details)
 
-def order_product(account_id, product_name, quantity=1):
+def redeem_product(account_id, product_name, quantity=1):
      
     # Step 1: Find the maximum existing order_id
     query = "SELECT MAX(order_id) FROM Orders"
@@ -481,7 +481,7 @@ async def stream_processor(response, messages):
                                 # "bing_web_search": bing_web_search,
                                 "get_bonus_points": get_bonus_points,
                                 "get_order_details": get_order_details,
-                                "order_product": order_product
+                                "redeem_product": redeem_product
                             }
                             function_to_call = available_functions[func_call["function"]["name"]] 
 
@@ -493,7 +493,7 @@ async def stream_processor(response, messages):
                                 products = [display_product_info(product_info)]
                                 yield json.dumps(products[0])
 
-                            if function_to_call ==  order_product:
+                            if function_to_call ==  redeem_product:
                                 transaction_info = json.loads(function_response)
                                 function_response = transaction_info['info']
                                 try:
