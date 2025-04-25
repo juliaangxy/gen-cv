@@ -10,11 +10,7 @@ import json
 from datetime import datetime, timedelta
 from bs4 import BeautifulSoup
 
-from azure.ai.projects import AIProjectClient
-from azure.identity import DefaultAzureCredential
-
-agent_string = os.getenv("AGENT_STRING")
-agent_id = os.getenv("AGENT_ID")
+from agentfile import bing_web_search
 
 # Azure Function App
 app = func.FunctionApp(http_auth_level=func.AuthLevel.ANONYMOUS)
@@ -287,33 +283,6 @@ def remove_html_tags(html_text):
 
 #     return results_str
 
-def bing_web_search(search_term):
-    project_client = AIProjectClient.from_connection_string(
-    credential=DefaultAzureCredential(),
-    conn_str=agent_string)
-
-    res = []
-
-    agent = project_client.agents.get_agent(agent_id)
-
-    thread = project_client.agents.create_thread()
-
-    message = project_client.agents.create_message(
-        thread_id=thread.id,
-        role="user",
-        content="Hi bing_search_occasions"
-    )
-
-    run = project_client.agents.create_and_process_run(
-        thread_id=thread.id,
-        agent_id=agent.id)
-    messages = project_client.agents.list_messages(thread_id=thread.id)
-
-    for text_message in messages.text_messages:
-        res.append(' ', text_message.content)
-    return str(res)
-
-
 def get_bonus_points(account_id):
     """Retrieve bonus points and its miles value for a given account ID."""
      
@@ -523,6 +492,11 @@ async def stream_processor(response, messages):
                                 function_response = product_info['description']
                                 products = [display_product_info(product_info)]
                                 yield json.dumps(products[0])
+
+                            if function_to_call == bing_web_search:
+                                web_info = json.loads(function_response)
+                                function_response = web_info['message']
+                                yield json.dumps("log":web_info['log'])
 
                             messages.append({
                                 "tool_call_id": func_call["id"],
