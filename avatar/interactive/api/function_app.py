@@ -410,7 +410,7 @@ def order_product(account_id, product_name, quantity=1):
     expected_delivery_date = today + timedelta(days=days_to_delivery)
     
     return json.dumps({
-        "info": "Order placed",
+        "info": f"Order placed for {quantity} {product_name_corrected}",
         "product_name": product_name_corrected,
         "expected_delivery_date": expected_delivery_date.strftime('%Y-%m-%d'),
         "remaining_points": loyalty_points - total_cost
@@ -492,6 +492,11 @@ async def stream_processor(response, messages):
                                 function_response = product_info['description']
                                 products = [display_product_info(product_info)]
                                 yield json.dumps(products[0])
+
+                            if function_to_call ==  order_product:
+                                transaction_info = json.loads(function_response)
+                                product_name = transaction_info["product_name"]
+                                function_response = transaction_info['info']
 
                             # if function_to_call == bing_web_search:
                             #     web_info = json.loads(function_response)
