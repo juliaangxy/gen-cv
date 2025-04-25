@@ -10,7 +10,7 @@ import json
 from datetime import datetime, timedelta
 from bs4 import BeautifulSoup
 
-from agentfile import bing_web_search
+# from agentfile import bing_web_search
 
 # Azure Function App
 app = func.FunctionApp(http_auth_level=func.AuthLevel.ANONYMOUS)
@@ -119,23 +119,23 @@ tools = [
             }
         }
     },
-    {
-        "type": "function",
-        "function": {
-            "name": "bing_web_search",
-            "description": "Search the web for questions about recent events, news or outdoor activities related forecasts. Use only if the requested information is not already available in the conversation context.",
-            "parameters": {
-                "type": "object",
-                "properties": {
-                    "search_term": {
-                        "type": "string",
-                        "description": "User question optimized for a web search engine (examples: How will the weather be like this weekend? Current hiking restrictions in the Grand Canyon, etc.)"
-                    },
-                },
-                "required": ["search_term"],
-            }
-        }
-    }
+    # {
+    #     "type": "function",
+    #     "function": {
+    #         "name": "bing_web_search",
+    #         "description": "Search the web for questions about recent events, news or outdoor activities related forecasts. Use only if the requested information is not already available in the conversation context.",
+    #         "parameters": {
+    #             "type": "object",
+    #             "properties": {
+    #                 "search_term": {
+    #                     "type": "string",
+    #                     "description": "User question optimized for a web search engine (examples: How will the weather be like this weekend? Current hiking restrictions in the Grand Canyon, etc.)"
+    #                 },
+    #             },
+    #             "required": ["search_term"],
+    #         }
+    #     }
+    # }
 ]
 
 
@@ -478,7 +478,7 @@ async def stream_processor(response, messages):
 
                             available_functions = {
                                 "get_product_information": get_product_information,
-                                "bing_web_search": bing_web_search,
+                                # "bing_web_search": bing_web_search,
                                 "get_bonus_points": get_bonus_points,
                                 "get_order_details": get_order_details,
                                 "order_product": order_product
@@ -493,10 +493,10 @@ async def stream_processor(response, messages):
                                 products = [display_product_info(product_info)]
                                 yield json.dumps(products[0])
 
-                            if function_to_call == bing_web_search:
-                                web_info = json.loads(function_response)
-                                function_response = web_info['message']
-                                yield json.dumps("log":web_info['log'])
+                            # if function_to_call == bing_web_search:
+                            #     web_info = json.loads(function_response)
+                            #     function_response = web_info['message']
+                            #     yield json.dumps("log":web_info['log'])
 
                             messages.append({
                                 "tool_call_id": func_call["id"],
