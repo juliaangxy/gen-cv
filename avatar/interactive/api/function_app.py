@@ -10,6 +10,12 @@ import json
 from datetime import datetime, timedelta
 from bs4 import BeautifulSoup
 
+from azure.ai.projects import AIProjectClient
+from azure.identity import DefaultAzureCredential
+
+agent_string = os.getenv("AGENT_STRING")
+agent_id = os.getenv("AGENT_ID")
+
 # Azure Function App
 app = func.FunctionApp(http_auth_level=func.AuthLevel.ANONYMOUS)
 
@@ -117,23 +123,23 @@ tools = [
             }
         }
     },
-    # {
-    #     "type": "function",
-    #     "function": {
-    #         "name": "bing_web_search",
-    #         "description": "Search the web for questions about recent events, news or outdoor activities related forecasts. Use only if the requested information is not already available in the conversation context.",
-    #         "parameters": {
-    #             "type": "object",
-    #             "properties": {
-    #                 "search_term": {
-    #                     "type": "string",
-    #                     "description": "User question optimized for a web search engine (examples: How will the weather be like this weekend? Current hiking restrictions in the Grand Canyon, etc.)"
-    #                 },
-    #             },
-    #             "required": ["search_term"],
-    #         }
-    #     }
-    # }
+    {
+        "type": "function",
+        "function": {
+            "name": "bing_web_search",
+            "description": "Search the web for questions about recent events, news or outdoor activities related forecasts. Use only if the requested information is not already available in the conversation context.",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "search_term": {
+                        "type": "string",
+                        "description": "User question optimized for a web search engine (examples: How will the weather be like this weekend? Current hiking restrictions in the Grand Canyon, etc.)"
+                    },
+                },
+                "required": ["search_term"],
+            }
+        }
+    }
 ]
 
 
@@ -281,6 +287,31 @@ def remove_html_tags(html_text):
 
 #     return results_str
 
+def bing_web_search(search_term):
+    project_client = AIProjectClient.from_connection_string(
+    credential=DefaultAzureCredential(),
+    conn_str=agent_string)
+
+    res = []
+
+    agent = project_client.agents.get_agent(agent_id)
+
+    thread = project_client.agents.create_thread()
+
+    message = project_client.agents.create_message(
+        thread_id=thread.id,
+        role="user",
+        content="Hi bing_search_occasions"
+    )
+
+    run = project_client.agents.create_and_process_run(
+        thread_id=thread.id,
+        agent_id=agent.id)
+    messages = project_client.agents.list_messages(thread_id=thread.id)
+
+    for text_message in messages.text_messages:
+        res.append(' ', text_message.content)
+    return str(res)
 
 
 def get_bonus_points(account_id):
@@ -478,7 +509,7 @@ async def stream_processor(response, messages):
 
                             available_functions = {
                                 "get_product_information": get_product_information,
-                                # "bing_web_search": bing_web_search,
+                                "bing_web_search": bing_web_search,
                                 "get_bonus_points": get_bonus_points,
                                 "get_order_details": get_order_details,
                                 "order_product": order_product
