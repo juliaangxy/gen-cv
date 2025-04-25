@@ -143,7 +143,7 @@ client = openai.AsyncAzureOpenAI(
     api_version="2023-09-01-preview"
 )
 
-def get_product_information(user_question, categories='*', top_k=1):
+def get_product_information(user_question, categories='*', top_k=3):
     """ Vectorize user query to search Cognitive Search vector search on index_name. Optional filter on categories field. """
      
     url = f"{search_endpoint}/indexes/{search_index_name}/docs/search?api-version={search_api_version}"
@@ -178,7 +178,7 @@ def get_product_information(user_question, categories='*', top_k=1):
     print('results_json', results_json)
     
     # Extracting the required fields from the results JSON
-    product_data = results_json['value'][0] # hard limit to top result for now
+    product_data = results_json['value'][2] # hard limit to top result for now
 
     response_data = {
         "tagline": product_data.get('tagline'),
@@ -344,7 +344,12 @@ def order_product(account_id, product_name, quantity=1):
     results = execute_sql_query(query)
     max_order_id = results[0][0] if results[0][0] is not None else 0
 
-# Step 2: Retrieve product information from the search engine
+    # Step 2: Retrieve product id from the database
+    query = "SELECT id, stock FROM Products WHERE LOWER(name) LIKE LOWER(?)"
+    params = (f'%{product_name}%',)
+    product_id = execute_sql_query(query)
+
+    # Step 3: Retrieve product information from the search engine
     product_info = json.loads(get_product_information(product_name))
     if not product_info:
         return json.dumps({"info": "No matching product found in the search engine"})
@@ -352,11 +357,14 @@ def order_product(account_id, product_name, quantity=1):
     product_name_corrected = product_info.get("tagline")
     special_offer_price = product_info.get("special_offer")
     if special_offer_price is None:
-        return json.dumps({"info": "Special offer price not found for the product"})
+        try:
+            special_offer_price = product_info.get("original_points")
+        except Exception as e:
+            return json.dumps({"info": "Required points is not found for the product"})
 
-    # Step 3: Check stock availability
-    query = "SELECT id, stock FROM Products WHERE LOWER(name) LIKE LOWER(?)"
-    params = (f'%{product_name_corrected}%',)
+    # Step 4: Check stock availability
+    query = "SELECT id, stock FROM Products WHERE id = ?"
+    params = (f'%{product_id}%',)
     results = execute_sql_query(query, params=params)
     
     if not results:
@@ -366,7 +374,7 @@ def order_product(account_id, product_name, quantity=1):
     if stock < quantity:
         return json.dumps({"info": "Insufficient stock"})
     
-# Step 4: Check if the customer has enough points
+    # Step 5: Check if the customer has enough points
     query = "SELECT loyalty_points FROM Customers WHERE account_id = ?"
     results = execute_sql_query(query, params=(account_id,))
     
