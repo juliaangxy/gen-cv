@@ -9,8 +9,6 @@ import requests
 import json
 from datetime import datetime, timedelta
 from bs4 import BeautifulSoup
-from azure.ai.openai import OpenAIClient
-from azure.core.credentials import AzureKeyCredential
 
 # Azure Function App
 app = func.FunctionApp(http_auth_level=func.AuthLevel.ANONYMOUS)
