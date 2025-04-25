@@ -284,7 +284,7 @@ def remove_html_tags(html_text):
 
 
 def get_bonus_points(account_id):
-    """Retrieve bonus points and its cash value for a given account ID."""
+    """Retrieve bonus points and its miles value for a given account ID."""
      
     # Define the SQL query to retrieve loyalty_points for the given account_id
     query = "SELECT loyalty_points FROM Customers WHERE account_id = ?"
@@ -299,13 +299,13 @@ def get_bonus_points(account_id):
     # Get the loyalty_points value
     loyalty_points = results[0][0]
 
-    # Convert loyalty_points to cash_value
-    cash_value = loyalty_points * 50
+    # Convert loyalty_points to miles_value
+    miles_value = loyalty_points * 5
 
     # Create a JSON object with the required keys and values
     response_json = json.dumps({
         "available_bonus_points": loyalty_points,
-        "cash_value": cash_value
+        "miles_value": miles_value
     })
 
     return response_json
