@@ -9,6 +9,8 @@ import requests
 import json
 from datetime import datetime, timedelta
 from bs4 import BeautifulSoup
+from azure.ai.openai import OpenAIClient
+from azure.core.credentials import AzureKeyCredential
 
 # Azure Function App
 app = func.FunctionApp(http_auth_level=func.AuthLevel.ANONYMOUS)
@@ -300,7 +302,7 @@ def get_bonus_points(account_id):
     loyalty_points = results[0][0]
 
     # Convert loyalty_points to cash_value
-    cash_value = loyalty_points * 5
+    cash_value = loyalty_points * 50
 
     # Create a JSON object with the required keys and values
     response_json = json.dumps({
@@ -344,29 +346,53 @@ def order_product(account_id, product_name, quantity=1):
     results = execute_sql_query(query)
     max_order_id = results[0][0] if results[0][0] is not None else 0
 
-    # Step 2 & 3: Find product ID and check stock
-    query = "SELECT id, name, stock FROM Products WHERE LOWER(name) LIKE LOWER(?)"
-    params = (f'%{product_name}%',)
+# Step 2: Retrieve product information from the search engine
+    product_info = json.loads(get_product_information(product_name))
+    if not product_info:
+        return json.dumps({"info": "No matching product found in the search engine"})
+
+    product_name_corrected = product_info.get("tagline")
+    special_offer_price = product_info.get("special_offer")
+    if special_offer_price is None:
+        return json.dumps({"info": "Special offer price not found for the product"})
+
+    # Step 3: Check stock availability
+    query = "SELECT id, stock FROM Products WHERE LOWER(name) LIKE LOWER(?)"
+    params = (f'%{product_name_corrected}%',)
     results = execute_sql_query(query, params=params)
     
-    # Handling no match found
     if not results:
-        return json.dumps({"info": "No matching product found"})
+        return json.dumps({"info": "No matching product found in the database"})
     
-    product_id, product_name_corrected, stock = results[0]
-    
-    # Check if the stock is sufficient
+    product_id, stock = results[0]
     if stock < quantity:
         return json.dumps({"info": "Insufficient stock"})
     
-    # Step 4: Place the order
-    # Deducting the ordered quantity from the stock
+# Step 4: Check if the customer has enough points
+    query = "SELECT loyalty_points FROM Customers WHERE account_id = ?"
+    results = execute_sql_query(query, params=(account_id,))
+    
+    if not results:
+        return json.dumps({"info": "Account not found"})
+    
+    loyalty_points = results[0][0]
+    total_cost = special_offer_price * quantity
+    
+    if loyalty_points < total_cost:
+        return json.dumps({"info": "Insufficient points to complete the purchase"})
+    
+    # Deduct the ordered quantity from the stock
     query = "UPDATE Products SET stock = stock - ? WHERE id = ?"
     params = (quantity, product_id)
     if place_orders: execute_sql_query(query, params=params)
 
-    # Adding the order details to the Orders table
-    days_to_delivery = 5
+    # Deduct the points from the customer's account
+    query = "UPDATE Customers SET loyalty_points = loyalty_points - ? WHERE account_id = ?"
+    params = (total_cost, account_id)
+    if place_orders: execute_sql_query(query, params=params)
+
+    # Add the order details to the Orders table
+    days_to_delivery = 3
     for i in range(quantity):
         max_order_id += 1
         query = "INSERT INTO Orders (order_id, product_id, days_to_delivery, account_id) VALUES (?, ?, ?, ?)"
@@ -380,7 +406,8 @@ def order_product(account_id, product_name, quantity=1):
     return json.dumps({
         "info": "Order placed",
         "product_name": product_name_corrected,
-        "expected_delivery_date": expected_delivery_date.strftime('%Y-%m-%d')
+        "expected_delivery_date": expected_delivery_date.strftime('%Y-%m-%d'),
+        "remaining_points": loyalty_points - total_cost
     })
 
 
