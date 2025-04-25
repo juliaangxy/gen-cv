@@ -1,0 +1,120 @@
+id,category,name,tagline,description,original_price,special_offer,product_image_file
+1000,spa,Tranquil Bliss,The Ultimate Spa Experience for Relaxation and Rejuvenation,"Indulge in the Tranquil Bliss spa package, designed to provide the ultimate relaxation and rejuvenation. This luxurious experience includes a full-body massage, a hydrating facial, and access to our serene thermal baths.
+Relaxing Massage: Enjoy a 60-minute full-body massage tailored to your needs, using aromatic essential oils to relieve tension and promote relaxation.
+Hydrating Facial: Rejuvenate your skin with a 45-minute hydrating facial, leaving your face glowing and refreshed.
+Thermal Baths: Gain access to our thermal baths, featuring hot and cold pools, steam rooms, and saunas for a complete wellness experience.
+Complimentary Refreshments: Enjoy herbal teas and healthy snacks during your visit.
+Sustainability: Our spa uses eco-friendly products and practices to ensure a sustainable experience.
+The Tranquil Bliss package is your gateway to relaxation and self-care. Treat yourself or a loved one to this unforgettable experience.",150,130,tranquil-bliss.png
+1001,lounge,Elite Lounge Access,Experience Luxury and Comfort at Our Exclusive Lounge,"Step into the Elite Lounge, where luxury and comfort meet. This package offers access to our premium lounge facilities, perfect for travelers or those seeking a serene escape.
+Exclusive Amenities: Enjoy complimentary Wi-Fi, charging stations, and private workspaces for productivity and relaxation.
+Gourmet Dining: Savor a selection of gourmet snacks, beverages, and meals prepared by our in-house chefs.
+Relaxation Areas: Unwind in our plush seating areas, complete with entertainment options like TVs and magazines.
+Shower Facilities: Refresh yourself with access to our private shower rooms, stocked with premium toiletries.
+Priority Service: Benefit from priority check-in and concierge services to enhance your experience.
+The Elite Lounge Access package is your ticket to a world of comfort and convenience. Elevate your travel or leisure time with this premium offering.",100,85,elite-lounge.png
+1002,golf,Green Haven,Master Your Swing at Our Premier Golf Course,"Discover Green Haven, a premier golf experience designed for enthusiasts of all skill levels. This package includes access to our championship golf course, professional coaching, and exclusive amenities.
+Championship Course: Play on our meticulously maintained 18-hole golf course, featuring stunning landscapes and challenging layouts.
+Professional Coaching: Improve your game with a 30-minute session from our certified golf instructors.
+Golf Cart and Equipment: Enjoy complimentary use of a golf cart and premium equipment during your visit.
+Clubhouse Access: Relax at our clubhouse, offering gourmet dining, a pro shop, and a lounge area.
+Eco-Friendly Practices: Our golf course is maintained using sustainable practices to preserve the environment.
+The Green Haven package is perfect for golfers looking to refine their skills or enjoy a day on the greens. Book your tee time today!",200,180,green-haven.png
+1003,entertainment,Starlight Cinema,An Exclusive Outdoor Movie Experience Under the Stars,"Experience the magic of cinema under the stars with the Starlight Cinema package. This unique outdoor movie experience is perfect for families, couples, or groups of friends.
+Outdoor Screening: Enjoy a blockbuster movie on a giant screen in a picturesque outdoor setting.
+Comfortable Seating: Relax in our premium lounge chairs or cozy up with blankets provided for your comfort.
+Gourmet Snacks: Indulge in a selection of gourmet popcorn, snacks, and beverages available at our concession stand.
+Live Entertainment: Arrive early to enjoy live music or performances before the movie begins.
+Eco-Friendly Event: Our event is designed with sustainability in mind, using solar-powered equipment and biodegradable materials.
+The Starlight Cinema package offers an unforgettable evening of entertainment and relaxation. Reserve your spot today!",50,40,starlight-cinema.png
+1004,spa,Zen Retreat,Rejuvenate Your Mind and Body with Our Signature Spa Package,"Escape to the Zen Retreat, a signature spa package designed to rejuvenate your mind and body. This experience includes a combination of treatments and access to our tranquil facilities.
+Signature Treatments: Enjoy a 90-minute hot stone massage and a 30-minute reflexology session to relieve stress and tension.
+Wellness Facilities: Access our meditation room, yoga studio, and herbal steam baths for a holistic wellness experience.
+Organic Products: All treatments use organic, cruelty-free products for a natural and sustainable experience.
+Healthy Dining: Savor a nutritious meal and detox beverages at our wellness café.
+The Zen Retreat package is your sanctuary for relaxation and self-care. Book your retreat today and rediscover balance.",180,160,zen-retreat.png
+1005,lounge,Cloud Nine Lounge,Relax and Recharge in Our Premium Lounge,"Welcome to the Cloud Nine Lounge, where comfort and convenience come together. This package offers access to our premium lounge facilities, ideal for travelers or those seeking a peaceful escape.
+Comfortable Spaces: Relax in our luxurious seating areas, equipped with charging stations and high-speed Wi-Fi.
+Culinary Delights: Enjoy a variety of gourmet snacks, beverages, and meals prepared by our expert chefs.
+Private Rooms: Book a private room for meetings or quiet relaxation.
+Shower and Spa: Refresh yourself with access to our shower facilities and mini-spa services.
+The Cloud Nine Lounge package is your haven for relaxation and productivity. Elevate your experience with this exclusive offering.",120,100,cloud-nine-lounge.png
+1006,golf,Eagle's Nest,Elevate Your Game at Our Exclusive Golf Club,"Welcome to Eagle's Nest, an exclusive golf experience designed for players seeking the best. This package includes access to our private golf club, professional coaching, and premium amenities.
+Private Course: Play on our exclusive 18-hole golf course, designed for both challenge and enjoyment.
+Personalized Coaching: Receive a 1-hour session with our PGA-certified instructors to refine your skills.
+Luxury Amenities: Enjoy access to our clubhouse, featuring a fine dining restaurant, a pro shop, and a spa.
+Complimentary Gear: Use our premium golf equipment and carts during your visit.
+The Eagle's Nest package is the ultimate golf experience for enthusiasts and professionals alike. Book your experience today!",300,270,eagles-nest.png
+1007,entertainment,Live Harmony,Immerse Yourself in a Night of Live Music and Entertainment,"Experience the magic of live music with the Live Harmony package. This exclusive event offers an evening of unforgettable performances in a stunning venue.
+Live Performances: Enjoy a lineup of talented musicians and bands performing a variety of genres.
+VIP Seating: Upgrade to VIP seating for the best views and exclusive perks.
+Gourmet Dining: Savor a selection of gourmet appetizers, meals, and beverages available at the venue.
+Interactive Activities: Participate in meet-and-greets, photo opportunities, and more.
+The Live Harmony package is perfect for music lovers seeking a night of entertainment and connection. Reserve your tickets now!",75,60,live-harmony.png
+1008,spa,Serenity Escape,Rediscover Peace with Our Exclusive Spa Package,"Unwind with the Serenity Escape, a spa package designed to help you rediscover peace and tranquility. This experience includes luxurious treatments and access to our serene facilities.
+Relaxing Treatments: Enjoy a 60-minute aromatherapy massage and a 30-minute facial tailored to your skin type.
+Serene Facilities: Access our infinity pool, hot tubs, and relaxation lounges for a complete wellness experience.
+Eco-Friendly Products: All treatments use eco-friendly and cruelty-free products for a sustainable experience.
+Complimentary Refreshments: Enjoy herbal teas and light snacks during your visit.
+The Serenity Escape package is your gateway to relaxation and rejuvenation. Treat yourself or a loved one today!",140,120,serenity-escape.png
+1009,entertainment,Comedy Night,An Evening of Laughter with Top Comedians,"Laugh the night away with the Comedy Night package, featuring performances by top comedians in a lively venue.
+Stand-Up Comedy: Enjoy a lineup of hilarious comedians delivering side-splitting performances.
+VIP Perks: Upgrade to VIP seating for the best views and exclusive perks.
+Food and Drinks: Indulge in a variety of snacks, meals, and beverages available at the venue.
+Interactive Fun: Participate in audience games and activities for a chance to win prizes.
+The Comedy Night package is perfect for a fun night out with friends or family. Book your tickets today and get ready to laugh!",50,40,comedy-night.png
+1100,spa,Heavenly Escape,The Ultimate Spa Day for Relaxation and Renewal,"Treat yourself to the Heavenly Escape spa package, a full day of pampering and relaxation. This package includes a luxurious massage, facial, and access to our exclusive spa facilities.
+Full-Body Massage: Enjoy a 90-minute deep tissue massage to relieve tension and promote relaxation.
+Rejuvenating Facial: Refresh your skin with a 60-minute facial tailored to your skin type.
+Spa Facilities: Access our infinity pool, steam rooms, and relaxation lounges for a complete wellness experience.
+Complimentary Refreshments: Indulge in herbal teas and light snacks during your visit.
+The Heavenly Escape package is the perfect way to unwind and recharge. Book your spa day today!",200,180,heavenly-escape.png
+1101,lounge,First Class Lounge,Experience the Height of Luxury and Comfort,"Step into the First Class Lounge, where luxury and convenience meet. This package offers access to our premium lounge facilities, perfect for travelers or those seeking a serene escape.
+Exclusive Amenities: Enjoy complimentary Wi-Fi, charging stations, and private workspaces for productivity and relaxation.
+Gourmet Dining: Savor a selection of gourmet snacks, beverages, and meals prepared by our in-house chefs.
+Relaxation Areas: Unwind in our plush seating areas, complete with entertainment options like TVs and magazines.
+Shower Facilities: Refresh yourself with access to our private shower rooms, stocked with premium toiletries.
+The First Class Lounge package is your ticket to a world of comfort and convenience. Elevate your travel or leisure time with this premium offering.",150,130,first-class-lounge.png
+1102,golf,Pro Swing,Refine Your Skills at Our Professional Golf Academy,"Take your golf game to the next level with the Pro Swing package. This experience includes access to our professional golf academy, personalized coaching, and exclusive amenities.
+Professional Coaching: Receive a 1-hour session with our PGA-certified instructors to refine your skills.
+Practice Facilities: Access our state-of-the-art driving range, putting greens, and chipping areas.
+Golf Equipment: Use our premium golf clubs and equipment during your session.
+Clubhouse Access: Relax at our clubhouse, featuring gourmet dining and a pro shop.
+The Pro Swing package is perfect for golfers looking to improve their game. Book your session today!",250,220,pro-swing.png
+1103,entertainment,Retro Arcade Night,Relive the Golden Age of Gaming,"Step back in time with the Retro Arcade Night package, a nostalgic gaming experience for all ages.
+Unlimited Gaming: Enjoy unlimited access to classic arcade games, pinball machines, and more.
+Themed Snacks: Indulge in retro-themed snacks and beverages while you play.
+Costume Contest: Participate in our 80s-themed costume contest for a chance to win prizes.
+Live DJ: Dance to retro hits spun by our live DJ throughout the night.
+The Retro Arcade Night package is perfect for gamers and nostalgia lovers alike. Book your tickets today!",40,30,retro-arcade-night.png
+1104,spa,Ocean Serenity,Relax and Rejuvenate with Ocean-Inspired Treatments,"Immerse yourself in the Ocean Serenity spa package, featuring treatments inspired by the calming power of the sea.
+Seaweed Wrap: Detoxify and nourish your skin with a 60-minute seaweed body wrap.
+Marine Facial: Rejuvenate your skin with a 45-minute facial using marine-based products.
+Hydrotherapy Pool: Relax in our hydrotherapy pool, designed to soothe muscles and promote circulation.
+The Ocean Serenity package is your escape to tranquility. Book your ocean-inspired spa day today!",170,150,ocean-serenity.png
+1105,lounge,Jetsetter Lounge,Relax and Recharge Before Your Flight,"The Jetsetter Lounge package offers the ultimate pre-flight experience, combining comfort and convenience.
+Comfortable Seating: Relax in our luxurious seating areas, equipped with charging stations and high-speed Wi-Fi.
+Gourmet Dining: Enjoy a variety of gourmet snacks, beverages, and meals prepared by our expert chefs.
+Private Rooms: Book a private room for meetings or quiet relaxation.
+Shower and Spa: Refresh yourself with access to our shower facilities and mini-spa services.
+The Jetsetter Lounge package is your haven for relaxation and productivity. Elevate your travel experience today!",110,90,jetsetter-lounge.png
+1106,golf,Golden Fairways,Play on Our Championship Golf Course,"Experience the Golden Fairways package, designed for golf enthusiasts seeking a premium experience.
+Championship Course: Play on our meticulously maintained 18-hole golf course, featuring stunning landscapes and challenging layouts.
+Golf Cart and Equipment: Enjoy complimentary use of a golf cart and premium equipment during your visit.
+Clubhouse Access: Relax at our clubhouse, offering gourmet dining, a pro shop, and a lounge area.
+The Golden Fairways package is perfect for golfers looking to enjoy a day on the greens. Book your tee time today!",220,200,golden-fairways.png
+1107,entertainment,Theater Under the Stars,An Enchanting Outdoor Theater Experience,"Experience the magic of live theater under the stars with the Theater Under the Stars package.
+Outdoor Performances: Enjoy a live theater production in a picturesque outdoor setting.
+Comfortable Seating: Relax in our premium lounge chairs or cozy up with blankets provided for your comfort.
+Gourmet Snacks: Indulge in a selection of gourmet popcorn, snacks, and beverages available at our concession stand.
+The Theater Under the Stars package offers an unforgettable evening of entertainment and relaxation. Reserve your spot today!",60,50,theater-under-the-stars.png
+1108,spa,Mountain Retreat,Rejuvenate with Our Signature Mountain Spa Package,"Escape to the Mountain Retreat, a signature spa package designed to rejuvenate your mind and body.
+Signature Treatments: Enjoy a 90-minute hot stone massage and a 30-minute reflexology session to relieve stress and tension.
+Wellness Facilities: Access our meditation room, yoga studio, and herbal steam baths for a holistic wellness experience.
+Organic Products: All treatments use organic, cruelty-free products for a natural and sustainable experience.
+The Mountain Retreat package is your sanctuary for relaxation and self-care. Book your retreat today!",190,170,mountain-retreat.png
+1109,entertainment,Rock Fest,An Unforgettable Night of Live Rock Music,"Get ready to rock with the Rock Fest package, featuring performances by top rock bands in a lively venue.
+Live Performances: Enjoy a lineup of talented rock bands delivering electrifying performances.
+VIP Perks: Upgrade to VIP seating for the best views and exclusive perks.
+Food and Drinks: Indulge in a variety of snacks, meals, and beverages available at the venue.
+The Rock Fest package is perfect for music lovers seeking a night of entertainment and connection. Reserve your tickets now!",80,70,rock-fest.png
