@@ -495,8 +495,12 @@ async def stream_processor(response, messages):
 
                             if function_to_call ==  order_product:
                                 transaction_info = json.loads(function_response)
-                                product_name = transaction_info["product_name"]
                                 function_response = transaction_info['info']
+                                try:
+                                    product_name = transaction_info["product_name"]
+                                    yield json.dumps(f'{"product": "{product_name}"}')
+                                except:
+                                    pass
 
                             # if function_to_call == bing_web_search:
                             #     web_info = json.loads(function_response)
