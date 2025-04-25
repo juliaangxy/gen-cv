@@ -26,7 +26,7 @@ search_index_name = os.getenv("AZURE_SEARCH_INDEX")
 bing_key = os.getenv("BING_KEY")
 search_url = os.getenv("BING_SEARCH_URL")
 blob_sas_url = os.getenv("BLOB_SAS_URL")
-place_orders = False
+place_orders = True
 
 sql_db_server = os.getenv("SQL_DB_SERVER")
 sql_db_user = os.getenv("SQL_DB_USER")
@@ -342,12 +342,17 @@ def redeem_product(account_id, product_name, quantity=1):
     # Step 1: Find the maximum existing order_id
     query = "SELECT MAX(order_id) FROM Orders"
     results = execute_sql_query(query)
-    max_order_id = results[0][0] if results[0][0] is not None else 0
+    if not results:
+        return json.dumps({"info": "No matching max order."})
+    else:
+        max_order_id = results[0][0] if results[0][0] is not None else 0
 
     # Step 2: Retrieve product id from the database
     query = "SELECT id, stock FROM Products WHERE LOWER(name) LIKE LOWER(?)"
     params = (f'%{product_name}%',)
     product_id = execute_sql_query(query)
+    if not product_id:
+        return json.dumps({"info": "No matching product ID."})
 
     # Step 3: Retrieve product information from the search engine
     product_info = json.loads(get_product_information(product_name))
@@ -366,9 +371,8 @@ def redeem_product(account_id, product_name, quantity=1):
     query = "SELECT id, stock FROM Products WHERE id = ?"
     params = (f'%{product_id}%',)
     results = execute_sql_query(query, params=params)
-    
     if not results:
-        return json.dumps({"info": "No matching product found in the database"})
+        return json.dumps({"info": "No matching product stock found in the database"})
     
     product_id, stock = results[0]
     if stock < quantity:
@@ -387,34 +391,37 @@ def redeem_product(account_id, product_name, quantity=1):
     if loyalty_points < total_cost:
         return json.dumps({"info": "Insufficient points to complete the purchase"})
     
-    # Deduct the ordered quantity from the stock
-    query = "UPDATE Products SET stock = stock - ? WHERE id = ?"
-    params = (quantity, product_id)
-    if place_orders: execute_sql_query(query, params=params)
-
-    # Deduct the points from the customer's account
-    query = "UPDATE Customers SET loyalty_points = loyalty_points - ? WHERE account_id = ?"
-    params = (total_cost, account_id)
-    if place_orders: execute_sql_query(query, params=params)
-
-    # Add the order details to the Orders table
-    days_to_delivery = 3
-    for i in range(quantity):
-        max_order_id += 1
-        query = "INSERT INTO Orders (order_id, product_id, days_to_delivery, account_id) VALUES (?, ?, ?, ?)"
-        params = (max_order_id, product_id, days_to_delivery, account_id)
+    try:
+        # Deduct the ordered quantity from the stock
+        query = "UPDATE Products SET stock = stock - ? WHERE id = ?"
+        params = (quantity, product_id)
         if place_orders: execute_sql_query(query, params=params)
-    
-    # Step 5: Calculate the expected delivery date and return the JSON object
-    today = datetime.now()
-    expected_delivery_date = today + timedelta(days=days_to_delivery)
-    
-    return json.dumps({
-        "info": f"Order placed for {quantity} {product_name_corrected}",
-        "product_name": product_name_corrected,
-        "expected_delivery_date": expected_delivery_date.strftime('%Y-%m-%d'),
-        "remaining_points": loyalty_points - total_cost
-    })
+
+        # Deduct the points from the customer's account
+        query = "UPDATE Customers SET loyalty_points = loyalty_points - ? WHERE account_id = ?"
+        params = (total_cost, account_id)
+        if place_orders: execute_sql_query(query, params=params)
+
+        # Add the order details to the Orders table
+        days_to_delivery = 3
+        for i in range(quantity):
+            max_order_id += 1
+            query = "INSERT INTO Orders (order_id, product_id, days_to_delivery, account_id) VALUES (?, ?, ?, ?)"
+            params = (max_order_id, product_id, days_to_delivery, account_id)
+            if place_orders: execute_sql_query(query, params=params)
+        
+        # Step 5: Calculate the expected delivery date and return the JSON object
+        today = datetime.now()
+        expected_delivery_date = today + timedelta(days=days_to_delivery)
+        
+        return json.dumps({
+            "info": f"Order placed for {quantity} {product_name_corrected}",
+            "product_name": product_name_corrected,
+            "expected_delivery_date": expected_delivery_date.strftime('%Y-%m-%d'),
+            "remaining_points": loyalty_points - total_cost
+        })
+    except Exception as e:
+        return json.dumps({"info": "Error occurred while placing the order", "error": str(e)})
 
 
 def execute_sql_query(query, connection_string=database_connection_string, params=None):
