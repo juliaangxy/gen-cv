@@ -592,7 +592,7 @@ def get_speech_token(req: Request) -> JSONResponse:
     logging.info('Python HTTP trigger function processed a request.')
 
     # Define token endpoint
-    token_endpoint = f"https://southeastasia.api.cognitive.microsoft.com/sts/v1.0/issueToken"
+    token_endpoint = f"https://{region}.api.cognitive.microsoft.com/sts/v1.0/issueToken"
 
     # Make HTTP request with subscription key as header
     # response = requests.post(token_endpoint, headers={"Ocp-Apim-Subscription-Key": subscription_key})
