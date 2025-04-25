@@ -516,45 +516,56 @@ window.stopSession = () => {
   speechSynthesizer.close()
 }
 
-window.startRecording = () => {
+let isRecording = false;
+
+function toggleRecording() {
+  if (isRecording) {
+    stopRecording();
+  } else {
+    startRecording();
+  }
+}
+
+function startRecording() {
   const speechConfig = SpeechSDK.SpeechConfig.fromAuthorizationToken(token, CogSvcRegion);
   speechConfig.authorizationToken = token;
   speechConfig.SpeechServiceConnection_LanguageIdMode = "Continuous";
-  var autoDetectSourceLanguageConfig = SpeechSDK.AutoDetectSourceLanguageConfig.fromLanguages(supported_languages);
+  const autoDetectSourceLanguageConfig = SpeechSDK.AutoDetectSourceLanguageConfig.fromLanguages(supported_languages);
 
-  document.getElementById('buttonIcon').className = "fas fa-stop"
-  document.getElementById('startRecording').disabled = true
+  document.getElementById('buttonIcon').className = "fas fa-stop";
+  document.getElementById('startRecording').disabled = false;
 
   recognizer = SpeechSDK.SpeechRecognizer.FromConfig(speechConfig, autoDetectSourceLanguageConfig);
 
   recognizer.recognized = function (s, e) {
     if (e.result.reason === SpeechSDK.ResultReason.RecognizedSpeech) {
-      let userQuery = e.result.text.trim()
+      const userQuery = e.result.text.trim();
       if (userQuery === '') {
-        return
+        return;
       }
       console.log('Recognized:', e.result.text);
       if (!continuousRecording) {
-        window.stopRecording();
+        stopRecording();
       }
 
-      handleUserQuery(e.result.text, "", "")
+      handleUserQuery(e.result.text, "", "");
     }
   };
 
   recognizer.startContinuousRecognitionAsync();
-
+  isRecording = true;
   console.log('Recording started.');
 }
 
-window.stopRecording = () => {
+function stopRecording() {
   if (recognizer) {
     recognizer.stopContinuousRecognitionAsync(
       function () {
         recognizer.close();
         recognizer = undefined;
-        document.getElementById('buttonIcon').className = "fas fa-microphone"
-        document.getElementById('startRecording').disabled = false
+        document.getElementById('buttonIcon').className = "fas fa-microphone";
+        document.getElementById('startRecording').disabled = false;
+        isRecording = false;
         console.log('Recording stopped.');
       },
       function (err) {
@@ -596,7 +607,7 @@ function addProductToChatHistory(product) {
         <img src="${product.image_url}" alt="tent" width="100%">
       </div>
       <div class="product-card__content">
-        <div><span class="product-card__price">$${product.special_offer}</span> <span class="product-card__old-price">$${product.original_price}</span></div>
+        <div><span class="product-card__points">$${product.special_offer}</span> <span class="product-card__old-points">$${product.original_points}</span></div>
         <div>${product.tagline}</div>
       </div>
     </fluent-card>

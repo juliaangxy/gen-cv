@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="UTF-8" />
-  <title>Trailblazers Outdoor Gear</title>
+  <title>Rewards Portal</title>
 
   <link href="./css/styles.css" rel="stylesheet" />
 
@@ -45,24 +45,24 @@
   </div>
 
   <div class="title">
-    <h1>Bank Easily With Talking Avatar</h1>
+    <h1>Your Loyalty Buddy Avatar</h1>
   </div>
 
   <div class="main">
     <div class="main-block">
-      <h2>Here are some things Talking Avatar can help you with:</h2>
+      <h2>Here are some things the Avatar can help you with:</h2>
 
       <div class="suggested-questions">
-        <button onclick="handleUserQuery(`What is the warranty for women's hiking boots?`)">
-          What is the warranty for women's hiking boots?
+        <button onclick="handleUserQuery(`What can I redeem that's suitable for kids?`)">
+          What can I redeem that's suitable for kids?
         </button>
 
-        <button onclick="handleUserQuery(`Do you have a tent for two people?`)">
-          Do you have a tent for two people?
+        <button onclick="handleUserQuery(`Do you have any golf packages for newbies?`)">
+          Do you have any golf packages for newbies?
         </button>
 
-        <button onclick="handleUserQuery(`How many bonus points do I have?`)">
-          How many bonus points do I have?
+        <button onclick="handleUserQuery(`How many points do I have?`)">
+          How many points do I have?
         </button>
 
         <button onclick="handleUserQuery(`When will my order arrive?`)">
@@ -79,7 +79,7 @@
       
       <fluent-card class="record-card">
         <div class="outerbutton">
-          <button id="startRecording" onclick="window.startRecording()" class="round-button">
+          <button id="startRecording" onclick="toggleRecording()" class="round-button">
             <i id="buttonIcon" class="fas fa-microphone"></i>
           </button>
         </div>

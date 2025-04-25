@@ -163,7 +163,7 @@ def get_product_information(user_question, categories='*', top_k=1):
                 "k": top_k
             },
         ],
-        "select": "tagline, description, original_price, special_offer, product_image_file",
+        "select": "tagline, description, original_points, special_offer, product_image_file",
     }
 
     # optional filtered search
@@ -183,7 +183,7 @@ def get_product_information(user_question, categories='*', top_k=1):
     response_data = {
         "tagline": product_data.get('tagline'),
         "description": product_data.get('description'),
-        "original_price": product_data.get('original_price'),
+        "original_points": product_data.get('original_points'),
         "special_offer": product_data.get('special_offer'),
         "product_image_file": product_data.get('product_image_file'),
     }
@@ -204,7 +204,7 @@ def display_product_info(product_info, display_size=40):
     if response.status_code == 200:
         return {
             "tagline": product_info['tagline'],
-            "original_price": product_info['original_price'],
+            "original_points": product_info['original_points'],
             "special_offer": product_info['special_offer'],
             "image_url": image_url 
             }
@@ -213,7 +213,7 @@ def display_product_info(product_info, display_size=40):
 
     print(f"""
     {product_info['tagline']}
-    Original price: ${product_info['original_price']} Special offer: ${product_info['special_offer']} 
+    Original points: ${product_info['original_points']} Special offer: ${product_info['special_offer']} 
     """)
 
 def generate_embeddings(text):
@@ -300,7 +300,7 @@ def get_bonus_points(account_id):
     loyalty_points = results[0][0]
 
     # Convert loyalty_points to cash_value
-    cash_value = loyalty_points / 9.5
+    cash_value = loyalty_points * 5
 
     # Create a JSON object with the required keys and values
     response_json = json.dumps({
