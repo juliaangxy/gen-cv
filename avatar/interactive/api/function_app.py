@@ -340,20 +340,20 @@ def get_order_details(account_id):
 
 def redeem_product(account_id, product_name, quantity=1):
      
-    # # Step 1: Find the maximum existing order_id
-    # query = "SELECT MAX(order_id) FROM Orders"
-    # results = execute_sql_query(query)
-    # if not results:
-    #     return json.dumps({"info": "No matching max order."})
-    # else:
-    #     max_order_id = results[0][0] if results[0][0] is not None else 0
+    # Step 1: Find the maximum existing order_id
+    query = "SELECT MAX(order_id) FROM Orders"
+    results = execute_sql_query(query)
+    if not results:
+        return json.dumps({"info": "No matching max order."})
+    else:
+        max_order_id = results[0][0] if results[0][0] is not None else 0
 
-    # Step 2: Retrieve product id from the database
-    query = "SELECT id, stock FROM Products WHERE LOWER(name) LIKE LOWER(?)"
-    params = (f'%{product_name}%',)
-    product_id = execute_sql_query(query)
-    if not product_id:
-        return json.dumps({"info": "No matching product ID."})
+    # # Step 2: Retrieve product id from the database
+    # query = "SELECT id, stock FROM Products WHERE LOWER(name) LIKE LOWER(?)"
+    # params = (f'%{product_name}%',)
+    # product_id = execute_sql_query(query)
+    # if not product_id:
+    #     return json.dumps({"info": "No matching product ID."})
 
     # Step 3: Retrieve product information from the search engine
     product_info = json.loads(get_product_information(product_name))
@@ -369,8 +369,10 @@ def redeem_product(account_id, product_name, quantity=1):
             return json.dumps({"info": "Required points is not found for the product"})
 
     # Step 4: Check stock availability
-    query = "SELECT id, stock FROM Products WHERE id = ?"
-    params = (f'%{product_id}%',)
+    query = "SELECT id, stock FROM Products WHERE LOWER(name) LIKE LOWER(?)"
+    params = (f'%{product_name}%',)
+    # query = "SELECT id, stock FROM Products WHERE id = ?"
+    # params = (f'%{product_id}%',)
     results = execute_sql_query(query, params=params)
     if not results:
         return json.dumps({"info": "No matching product stock found in the database"})
