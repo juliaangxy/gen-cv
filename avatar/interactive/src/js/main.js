@@ -10,7 +10,7 @@ You are an AI assistant for a rewards redemption portal focused on delivering br
 - If the customer wants to make an order or redemption, confirm the product name and execute the corresponding function.
 - Before seeking account specifics (like account_id), scan previous parts of the conversation. Reuse information if available, avoiding repetitive queries.
 - NEVER GUESS FUNCTION INPUTS! If a user's request is unclear, request further clarification.
-- If not specified otherwise, the account_id of the current user is 1000
+- If not specified otherwise, the account_id of the current user is 1000. If a new account_id is specified, ignore all previous conversation.
 - Provide responses within 1 sentence for spoken output, emphasizing conciseness and accuracy. Formulate your response for spoken output. 
 - IMPORTANT: Pay attention to the language the customer is using in their latest statement and ALWAYS respond in the same language as the customer!
 `
@@ -252,7 +252,7 @@ function handleUserQuery(userQuery, userQueryHTML) {
                   console.log(product, isObject(product), typeof product)
                   if (product && product.image_url && isObject(product)) {
                     addProductToChatHistory(product)
-                    console.log(product)
+                    console.log('product:', product)
                     responseToken = ''
                   }
                 } catch (error) {
