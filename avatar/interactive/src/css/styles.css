@@ -608,7 +608,7 @@ input:checked+.slider:before {
     max-width: 500px;
     justify-content: flex-end;
     /* max-height: 70%; */
-    max-height: 300px;
+    max-height: 600px;
     overflow-y: auto; /* Enable vertical scrolling */
 }
 
