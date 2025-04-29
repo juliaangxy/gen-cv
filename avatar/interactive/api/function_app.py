@@ -183,6 +183,7 @@ def get_product_information(user_question, categories='*', top_k=3):
     product_data = results_json['value'][2] # hard limit to top result for now
 
     response_data = {
+        "product_name": product_data.get('name'),
         "tagline": product_data.get('tagline'),
         "description": product_data.get('description'),
         "original_points": product_data.get('original_points'),
@@ -339,13 +340,13 @@ def get_order_details(account_id):
 
 def redeem_product(account_id, product_name, quantity=1):
      
-    # Step 1: Find the maximum existing order_id
-    query = "SELECT MAX(order_id) FROM Orders"
-    results = execute_sql_query(query)
-    if not results:
-        return json.dumps({"info": "No matching max order."})
-    else:
-        max_order_id = results[0][0] if results[0][0] is not None else 0
+    # # Step 1: Find the maximum existing order_id
+    # query = "SELECT MAX(order_id) FROM Orders"
+    # results = execute_sql_query(query)
+    # if not results:
+    #     return json.dumps({"info": "No matching max order."})
+    # else:
+    #     max_order_id = results[0][0] if results[0][0] is not None else 0
 
     # Step 2: Retrieve product id from the database
     query = "SELECT id, stock FROM Products WHERE LOWER(name) LIKE LOWER(?)"
@@ -359,7 +360,7 @@ def redeem_product(account_id, product_name, quantity=1):
     if not product_info:
         return json.dumps({"info": "No matching product found in the search engine"})
 
-    product_name_corrected = product_info.get("tagline")
+    product_name_corrected = product_info.get("name")
     special_offer_price = product_info.get("special_offer")
     if special_offer_price is None:
         try:
