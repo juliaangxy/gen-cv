@@ -9,7 +9,7 @@
       "enableDependencyTracking": true
     },
     "logLevels": {
-      "default": "Info"
+      "default": "Verbose"
     }
   },
   "extensionBundle": {
