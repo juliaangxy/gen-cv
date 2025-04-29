@@ -5,7 +5,11 @@
       "samplingSettings": {
         "isEnabled": true,
         "excludedTypes": "Request"
-      }
+      },
+      "enableDependencyTracking": true
+    },
+    "logLevels": {
+      "default": "Info"
     }
   },
   "extensionBundle": {
