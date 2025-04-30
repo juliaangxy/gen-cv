@@ -238,6 +238,7 @@ def get_user_history(account_id):
     FROM Orders o
     JOIN Products p ON o.product_id = p.id
     WHERE o.account_id = ?
+    ORDER BY o.order_id DESC
     """
     params = (account_id,)
     results = execute_sql_query(query, params=params)
@@ -246,7 +247,7 @@ def get_user_history(account_id):
         response_json = json.dumps({"order_history": "None"})
     else:
         # Extract product names from the results
-        products = [row[0] for row in results]
+        products = [row for row in results]
         response_json = json.dumps({"order_history": products})
 
     return response_json
