@@ -210,28 +210,46 @@ def get_product_information(user_question, categories='*', top_k=3):
     return json.dumps(response_data)
 
 def get_user_history(account_id):
-    """Retrieve user history for a given account ID."""
+    """Retrieve product names for a given account ID."""
      
-    # Define the SQL query to retrieve user history for the given account_id
-    query = "SELECT product_id FROM Orders WHERE account_id = ?"
+    # # Define the SQL query to retrieve user history for the given account_id
+    # query = "SELECT product_id FROM Orders WHERE account_id = ?"
 
-    # Execute the query with account_id as a parameter
-    results = execute_sql_query(query, params=(account_id,))
+    # # Execute the query with account_id as a parameter
+    # results = execute_sql_query(query, params=(account_id,))
 
+    # # If results are empty, return an error message in JSON format
+    # if not results:
+    #     response_json = json.dumps({"order_history": "None"})
+    # else:
+    #     products = []
+    #     for order in results:
+    #         # Get the order_id, product_id, and days_to_delivery values
+    #         order = int(order[0])
+    #         query = "SELECT name FROM Products WHERE id = ?"
+    #         params = (f'{order}',)
+    #         results = execute_sql_query(query, params=params)
+    #         products.append(results[0][0])
+    #     # Create a JSON object with the required keys and values
+    #     response_json = json.dumps({"order_history": str()})
+
+    query = """
+    SELECT p.name 
+    FROM Orders o
+    JOIN Products p ON o.product_id = p.id
+    WHERE o.account_id = ?
+    """
+    params = (account_id,)
+    results = execute_sql_query(query, params=params)
     # If results are empty, return an error message in JSON format
     if not results:
         response_json = json.dumps({"order_history": "None"})
     else:
-        products = []
-        for order in results:
-            # Get the order_id, product_id, and days_to_delivery values
-            order = int(order[0])
-            query = "SELECT name FROM Products WHERE id = ?"
-            params = (f'{order}',)
-            results = execute_sql_query(query, params=params)
-            products.append(results[0][0])
-        # Create a JSON object with the required keys and values
-        response_json = json.dumps({"order_history": str()})
+        # Extract product names from the results
+        products = [row[0] for row in results]
+        response_json = json.dumps({"order_history": products})
+
+    return response_json
 
     return response_json
 
