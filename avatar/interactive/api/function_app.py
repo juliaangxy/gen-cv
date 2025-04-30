@@ -247,7 +247,7 @@ def get_user_history(account_id):
         response_json = json.dumps({"order_history": "None"})
     else:
         # Extract product names from the results
-        products = results[0]
+        products = results[0][0]
         response_json = json.dumps({"order_history": products})
 
     return response_json
