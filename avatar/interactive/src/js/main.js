@@ -640,8 +640,8 @@ function addProductToUI(productInfo) {
   console.log('addProductToUI image url', decodedImageUrl)
   // const newDiv = document.createElement('div');
   // newDiv.innerHTML = `
-  const productCardHTML = ```
-    <div class="product-card">
+  const productCardHTML = 
+  `<div class="product-card">
       <img src="${decodedImageUrl}" alt="Product Image" class="product-card__image" />
       <div class="product-card__content">
         <h3 class="product-card__tagline">${productInfo.tagline}</h3>
@@ -650,8 +650,7 @@ function addProductToUI(productInfo) {
           <span class="product-card__special-offer">Special Offer: ${productInfo.special_offer}</span>
         </p>
       </div>
-    </div>
-  ```;
+    </div>`;
 
   // Append the product card to the chat history or a specific container
   const chatHistory = document.getElementById('chathistory'); // Replace with your container ID
