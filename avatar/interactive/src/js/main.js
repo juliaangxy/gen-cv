@@ -253,7 +253,7 @@ function handleUserQuery(userQuery, userQueryHTML) {
                     console.log('parts:', parts[0])
                     const jsonPart = parts[0] + '}'; // Add back the trailing '}'
                     // product = JSON.parse(responseToken);
-                    product = JSON.parse(jsonPart);
+                    productInfo = JSON.parse(jsonPart);
 
                     console.log(product, isObject(product), typeof product)
                     productInfo.image_url = decodeURIComponent(productInfo.image_url);
