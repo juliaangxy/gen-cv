@@ -271,6 +271,7 @@ def display_product_info(product_info, display_size=40):
     # Check if the request was successful
     if response.status_code == 200:
         return {
+            "name": product_info['product_name'],
             "tagline": product_info['tagline'],
             "original_points": product_info['original_points'],
             "special_offer": product_info['special_offer'],
