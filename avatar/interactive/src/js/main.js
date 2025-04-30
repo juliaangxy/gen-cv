@@ -82,7 +82,7 @@ var isSpeaking = false
 var spokenTextQueue = []
 var lastSpeakTime
 let token
-const chatBox = document.querySelector('.chat-box');
+const chatBox = document.querySelector('.chat-history');
 chatBox.scrollTop = chatBox.scrollHeight;
 
 // Setup WebRTC
