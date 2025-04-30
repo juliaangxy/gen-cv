@@ -644,7 +644,7 @@ function addProductToUI(productInfo) {
   // chatHistory.innerHTML += productCardHTML;
   // const newDiv = document.createElement('div');
   // newDiv.innerHTML = `
-  var productCardHTML = "<div class="product-card"></div>"
+  var productCardHTML = '<div class="product-card"></div>'
   // var productCardHTML = 
   // `<div class="product-card">
   //     <img src="${decodedImageUrl}" alt="Product Image" class="product-card__image" />
