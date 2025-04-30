@@ -7,6 +7,7 @@ import logging
 import pyodbc
 import requests
 import json
+import logging
 from datetime import datetime, timedelta
 from bs4 import BeautifulSoup
 
@@ -527,7 +528,7 @@ async def stream_processor(response, messages):
     async for chunk in response:
         if len(chunk.choices) > 0:
             delta = chunk.choices[0].delta
-
+            logging.info(f"Delta: {delta}")
             if delta.content is None:
                 if delta.tool_calls:
                     tool_calls = delta.tool_calls
