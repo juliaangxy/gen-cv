@@ -610,29 +610,29 @@ input:checked+.slider:before {
     max-height: 70%;
     /* max-height: 600px; */
     overflow-y: auto; /* Enable vertical scrolling */
-    padding: 10px;
-    border: 1px solid #ccc;
+    /* padding: 10px; */
+    /* border: 1px solid #ccc;
     border-radius: 5px;
     background-color: #f9f9f9;
-    margin: 0;
+    margin: 0; */
 }
 
 .chat-history li {
     border-radius: 6px;
 }
 
-.chat-history::-webkit-scrollbar {
-    width: 8px; /* Width of the scrollbar */
+/* .chat-history::-webkit-scrollbar {
+    width: 8px; /* Width of the scrollbar
   }
   
   .chat-history::-webkit-scrollbar-thumb {
-    background-color: #ccc; /* Color of the scrollbar thumb */
-    border-radius: 4px; /* Rounded corners for the scrollbar thumb */
+    background-color: #ccc; /* Color of the scrollbar thumb
+    border-radius: 4px; /* Rounded corners for the scrollbar thumb
   }
   
   .chat-history::-webkit-scrollbar-thumb:hover {
-    background-color: #aaa; /* Hover color for the scrollbar thumb */
-  }
+    background-color: #aaa; /* Hover color for the scrollbar thumb
+  } */
 
 .message {
     padding: 8px 16px 8px 16px;
