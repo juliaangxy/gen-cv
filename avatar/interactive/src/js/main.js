@@ -661,13 +661,13 @@ function addProductToUI(productInfo) {
   // chatHistory.innerHTML += productCardHTML
   // var productCardHTML = `
   // chatHistory.innerHTML += productCardHTML
-  var productCardHTML = `<div class="product-card">
-  <img src="${decodedImageUrl}" alt="Product Image" class="product-card__image">
-  <div class="product-card__content">
-  <h3 class="product-card__tagline">${productInfo.tagline}</h3>
-  <p class="product-card__points">
-  <span class="product-card__old-points">Original Points: ${productInfo.original_points}</span>
-  <span class="product-card__special-offer">Special Offer: ${productInfo.special_offer}</span>
+  var productCardHTML = `<div class="product-card"> \
+  <img src="${decodedImageUrl}" alt="Product Image" class="product-card__image"> \
+  <div class="product-card__content"> \
+  <h3 class="product-card__tagline">${productInfo.tagline}</h3> \
+  <p class="product-card__points"> \
+  <span class="product-card__old-points">Original Points: ${productInfo.original_points}</span> \
+  <span class="product-card__special-offer">Special Offer: ${productInfo.special_offer}</span> \
   </p></div></div>`
   chatHistory.innerHTML += productCardHTML
   // chatHistory.appendChild(newDiv);
