@@ -262,9 +262,10 @@ def display_product_info(product_info, display_size=40):
     image_file = product_info['product_image_file']
 
     image_url = blob_sas_url.split("?")[0] + f"/{image_file}?" + blob_sas_url.split("?")[1]
-
+    
     response = requests.get(image_url)
-    print(image_url)
+    # print(image_url)
+    #image_url remove whitespace
 
     # Check if the request was successful
     if response.status_code == 200:
@@ -272,7 +273,7 @@ def display_product_info(product_info, display_size=40):
             "tagline": product_info['tagline'],
             "original_points": product_info['original_points'],
             "special_offer": product_info['special_offer'],
-            "image_url": image_url 
+            "image_url": str(image_url)
             }
     else:
         print(f"Failed to retrieve image. HTTP Status code: {response.status_code}")
