@@ -609,18 +609,24 @@ window.submitText = () => {
 
 function addToConversationHistory(item, historytype) {
   const list = document.getElementById('chathistory');
-  if (list.children.length !== 0) {
-    const lastItem = list.lastChild;
-    console.log('List:', list);
-    console.log('Last item:', lastItem);
-    if (lastItem.classList.contains(`message--${historytype}`)) {
-      lastItem.textContent += `${item}`;
-      return;
-    }
-    else {
+  // if (list.children.length !== 0) {
+  //   const lastItem = list.lastChild;
+  //   console.log('List:', list);
+  //   console.log('Last item:', lastItem);
+  //   if (lastItem.classList.contains(`message--${historytype}`)) {
+  //     lastItem.textContent += `${item}`;
+  //     return;
+  //   }
+    if (list.children.length !== 0) {
+      const lastItem = list.children[list.children.length - 1]; // Get the last child element
+      console.log('Last item:', lastItem);
+      if (lastItem.classList.contains(`message--${historytype}`)) {
+        lastItem.textContent += `${item}`;
+        return;
+      }
+    } else {
       lastItem.textContent += `\n`;
     }
-  }
   const newItem = document.createElement('li');
   newItem.classList.add('message');
   newItem.classList.add(`message--${historytype}`);
