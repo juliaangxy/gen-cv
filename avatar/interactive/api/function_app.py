@@ -225,7 +225,7 @@ def get_user_history(account_id):
         products = []
         for order in results:
             # Get the order_id, product_id, and days_to_delivery values
-            order = order[0]
+            order = int(order[0])
             query = "SELECT name FROM Products WHERE id = ?"
             params = (f'{order}',)
             results = execute_sql_query(query, params=params)
