@@ -607,9 +607,14 @@ input:checked+.slider:before {
     padding-left: 0;
     max-width: 500px;
     justify-content: flex-end;
-    /* max-height: 70%; */
-    max-height: 600px;
+    max-height: 70%;
+    /* max-height: 600px; */
     overflow-y: auto; /* Enable vertical scrolling */
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    margin: 0;
 }
 
 .chat-history li {
