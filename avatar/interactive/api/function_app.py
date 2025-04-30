@@ -532,6 +532,7 @@ async def stream_processor(response, messages):
                             available_functions = {
                                 "get_product_information": get_product_information,
                                 # "bing_web_search": bing_web_search,
+                                "get_user_history": get_user_history,
                                 "get_bonus_points": get_bonus_points,
                                 "get_order_details": get_order_details,
                                 "redeem_product": redeem_product
