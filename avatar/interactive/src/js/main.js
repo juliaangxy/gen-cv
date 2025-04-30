@@ -635,11 +635,11 @@ function addToConversationHistory(item, historytype) {
 }
 
 function addProductToUI(productInfo) {
-  productInfo.image_url.replace(/%25/g, '%');
+  const decodedImageUrl = decodeURIComponent(productInfo.image_url.replace(/%25/g, '%'));
   console.log('addProductToUI', productInfo)
   const productCardHTML = `
     <div class="product-card">
-      <img src="${productInfo.image_url}" alt="Product Image" class="product-card__image" />
+      <img src="${decodedImageUrl}" alt="Product Image" class="product-card__image" />
       <div class="product-card__content">
         <h3 class="product-card__tagline">${productInfo.tagline}</h3>
         <p class="product-card__points">
