@@ -248,14 +248,16 @@ function handleUserQuery(userQuery, userQueryHTML) {
                   const isObject = (x) => typeof x === 'object' && !Array.isArray(x) && x !== null
                   console.log(responseToken, typeof responseToken)
                   if (responseToken && responseToken.trim() !== "null") {
+                    // Split the chunk by '}' once
+                    const parts = chunkString.split('}', 1); // Split only once
+                    const jsonPart = parts[0] + '}'; // Add back the trailing '}'
                     product = JSON.parse(responseToken);
-                  }
 
-                  console.log(product, isObject(product), typeof product)
-                  if (product && product.image_url && isObject(product)) {
-                    addProductToUI(product)
-                    console.log('product:', product)
-                    responseToken = ''
+                    console.log(product, isObject(product), typeof product)
+                    if (product && product.image_url && isObject(product)) {
+                      addProductToUI(product)
+                      console.log('product:', product)
+                      responseToken = parts[1]
                     // fetch('/api/get-product-info', {
                     //   method: 'POST',
                     //   headers: {
@@ -273,6 +275,7 @@ function handleUserQuery(userQuery, userQueryHTML) {
                     //   .catch(error => {
                     //     console.error('Error fetching product info:', error);
                     //   })
+                    }
                   }
                 } catch (error) {
                   console.log('Error parsing product:', error)
