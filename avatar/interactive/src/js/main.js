@@ -249,19 +249,19 @@ function handleUserQuery(userQuery, userQueryHTML) {
                   console.log(responseToken, typeof responseToken)
                   if (responseToken && responseToken.trim() !== "null") {
                     // Split the chunk by '}' once
-                    const parts = chunkString.split('}', 1); // Split only once
+                    const parts = chunkString.split('}', 1) // Split only once
                     console.log('parts:', parts[0])
-                    const jsonPart = parts[0] + '}'; // Add back the trailing '}'
+                    const jsonPart = parts[0] + '}' // Add back the trailing '}'
                     // product = JSON.parse(responseToken);
-                    product = JSON.parse(jsonPart);
+                    const remaining_text = parts[1]
+                    product = JSON.parse(jsonPart)
                     // console.log('product name:', product.product_name)
                     console.log(product, isObject(product), typeof product)
-                    product.image_url = decodeURIComponent(product.image_url);
+                    product.image_url = decodeURIComponent(product.image_url)
                     console.log(product.image_url);
                     if (product && product.image_url && isObject(product)) {
                       addProductToUI(product)
                       console.log('product added to UI:', product)
-                      const remaining_text = parts[1]
                       responseToken = remaining_text
                       displaySentence = remaining_text
                       console.log('responseToken:', responseToken)
