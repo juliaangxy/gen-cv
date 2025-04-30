@@ -266,8 +266,8 @@ function handleUserQuery(userQuery, userQueryHTML) {
                     if (product && product.image_url && isObject(product)) {
                       addProductToUI(product)
                       console.log('product added to UI:', product)
-                      responseToken += remaining_text
-                      displaySentence += remaining_text
+                      responseToken = remaining_text
+                      displaySentence = remaining_text
                       console.log('responseToken:', responseToken)
                     // fetch('/api/get-product-info', {
                     //   method: 'POST',
@@ -323,6 +323,7 @@ function handleUserQuery(userQuery, userQueryHTML) {
           // })
 
           if (displaySentence !== '') {
+            console.log('displaySentence', displaySentence)
             addToConversationHistory(displaySentence, 'light');
           }
           displaySentence = ''
