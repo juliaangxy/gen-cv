@@ -227,7 +227,7 @@ def get_user_history(account_id):
             # Get the order_id, product_id, and days_to_delivery values
             order = order[0]
             query = "SELECT name FROM Products WHERE id = ?"
-            params = (f'%{order}%',)
+            params = (f'{order}',)
             results = execute_sql_query(query, params=params)
             products.append(results[0][0])
         # Create a JSON object with the required keys and values
