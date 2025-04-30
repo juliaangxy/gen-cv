@@ -262,7 +262,7 @@ function handleUserQuery(userQuery, userQueryHTML) {
                     // console.log('product name:', product.product_name)
                     console.log(product, isObject(product), typeof product)
                     product.image_url = decodeURIComponent(product.image_url)
-                    product.image_url.replace(/%25/g, '%');
+                    // product.image_url.replace(/%25/g, '%');
                     console.log(product.image_url);
                     if (product && product.image_url && isObject(product)) {
                       addProductToUI(product)
@@ -635,6 +635,8 @@ function addToConversationHistory(item, historytype) {
 }
 
 function addProductToUI(productInfo) {
+  productInfo.image_url.replace(/%25/g, '%');
+  console.log('addProductToUI', productInfo)
   const productCardHTML = `
     <div class="product-card">
       <img src="${productInfo.image_url}" alt="Product Image" class="product-card__image" />
