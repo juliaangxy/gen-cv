@@ -255,6 +255,8 @@ function handleUserQuery(userQuery, userQueryHTML) {
                     product = JSON.parse(responseToken);
 
                     console.log(product, isObject(product), typeof product)
+                    productInfo.image_url = decodeURIComponent(productInfo.image_url);
+                    console.log(productInfo.image_url);
                     if (product && product.image_url && isObject(product)) {
                       addProductToUI(product)
                       console.log('product:', product)

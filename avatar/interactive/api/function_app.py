@@ -10,6 +10,7 @@ import json
 import logging
 from datetime import datetime, timedelta
 from bs4 import BeautifulSoup
+from urllib.parse import quote
 
 # from agentfile import bing_web_search
 
@@ -273,7 +274,7 @@ def display_product_info(product_info, display_size=40):
             "tagline": product_info['tagline'],
             "original_points": product_info['original_points'],
             "special_offer": product_info['special_offer'],
-            "image_url": str(image_url)
+            "image_url": quote("https://avatarsglocal.blob.core.windows.net/rewards/pro-swing.png?sp=r&st=2025-04-30T07:40:50Z&se=2027-04-30T15:23:50Z&spr=https&sv=2024-11-04&sr=c&sig=Xq%2Fa2KJdjZP5Gao4BQ2f1p94wfbMyxnpV2x%2FugeiPUE%3D", safe=":/?&=")
             }
     else:
         print(f"Failed to retrieve image. HTTP Status code: {response.status_code}")
