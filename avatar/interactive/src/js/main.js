@@ -250,10 +250,14 @@ function handleUserQuery(userQuery, userQueryHTML) {
                   if (responseToken && responseToken.trim() !== "null") {
                     // Split the chunk by '}' once
                     const parts = chunkString.split('}', 1) // Split only once
-                    console.log('parts:', parts[0])
+                    console.log('part 0:', parts[0])
                     const jsonPart = parts[0] + '}' // Add back the trailing '}'
                     // product = JSON.parse(responseToken);
-                    const remaining_text = parts[1]
+                    const remaining_text = chunkString.slice(
+                      jsonPart.length
+                    ); // Get the remaining text
+                    // const remaining_text = parts[1]
+                    console.log('remaining_text:', remaining_text)
                     product = JSON.parse(jsonPart)
                     // console.log('product name:', product.product_name)
                     console.log(product, isObject(product), typeof product)
