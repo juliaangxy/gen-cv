@@ -254,13 +254,13 @@ function handleUserQuery(userQuery, userQueryHTML) {
                     const jsonPart = parts[0] + '}'; // Add back the trailing '}'
                     // product = JSON.parse(responseToken);
                     product = JSON.parse(jsonPart);
-
+                    console.log('product name:', product.product_name)
                     console.log(product, isObject(product), typeof product)
                     product.image_url = decodeURIComponent(product.image_url);
                     console.log(product.image_url);
                     if (product && product.image_url && isObject(product)) {
                       addProductToUI(product)
-                      console.log('product:', product)
+                      console.log('product added to UI:', product)
                       responseToken = JSON.stringify(parts[1])
                       console.log('responseToken:', responseToken)
                     // fetch('/api/get-product-info', {
@@ -620,7 +620,7 @@ function addProductToUI(productInfo) {
     <div class="product-card">
       <img src="${productInfo.image_url}" alt="Product Image" class="product-card__image" />
       <div class="product-card__content">
-        <h2 class="product-card__title">${productInfo.name}</h2>
+        <h2 class="product-card__title">${productInfo.product_name}</h2>
         <h3 class="product-card__tagline">${productInfo.tagline}</h3>
         <p class="product-card__points">
           <span class="product-card__old-points">Original Points: ${productInfo.original_points}</span>
