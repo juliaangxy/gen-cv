@@ -623,9 +623,9 @@ function addToConversationHistory(item, historytype) {
       if (lastItem.classList.contains(`message--${historytype}`)) {
         lastItem.textContent += `${item}`;
         return;
+      } else {
+        lastItem.textContent += `\n`;
       }
-    } else {
-      lastItem.textContent += `\n`;
     }
   const newItem = document.createElement('li');
   newItem.classList.add('message');
