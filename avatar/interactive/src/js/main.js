@@ -251,8 +251,9 @@ function handleUserQuery(userQuery, userQueryHTML) {
                     // Split the chunk by '}' once
                     const parts = chunkString.split('}', 1); // Split only once
                     console.log('parts:', parts[0])
-                    // const jsonPart = parts[0] + '}'; // Add back the trailing '}'
-                    product = JSON.parse(responseToken);
+                    const jsonPart = parts[0] + '}'; // Add back the trailing '}'
+                    // product = JSON.parse(responseToken);
+                    product = JSON.parse(jsonPart);
 
                     console.log(product, isObject(product), typeof product)
                     productInfo.image_url = decodeURIComponent(productInfo.image_url);
