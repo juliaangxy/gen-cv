@@ -717,14 +717,6 @@ input:checked+.slider:before {
     margin-top: 10px;
   }
   
-  /* .product-card__title {
-    font-size: 14px;
-    font-weight: bold;
-    margin: 0;
-    word-wrap: break-word;
-    overflow-wrap: break-word;
-  } */
-
   .product-card__tagline {
     font-size: 12px;
     font-weight: bold;
