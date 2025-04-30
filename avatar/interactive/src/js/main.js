@@ -608,12 +608,16 @@ window.submitText = () => {
 }
 
 function addToConversationHistory(item, historytype) {
-  const list = document.getElementById('chathistory');
+  const list = document.getElementById('chatHistory');
   if (list.children.length !== 0) {
     const lastItem = list.lastChild;
+    
     if (lastItem.classList.contains(`message--${historytype}`)) {
       lastItem.textContent += `${item}`;
       return;
+    }
+    else {
+      lastItem.textContent += `\n`;
     }
   }
   const newItem = document.createElement('li');
@@ -639,7 +643,7 @@ function addProductToUI(productInfo) {
   `;
 
   // Append the product card to the chat history or a specific container
-  const chatHistory = document.getElementById('chathistory'); // Replace with your container ID
+  const chatHistory = document.getElementById('chatHistory'); // Replace with your container ID
   chatHistory.innerHTML += productCardHTML;
 
   // Scroll to the bottom of the chat history
