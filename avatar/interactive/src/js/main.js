@@ -290,9 +290,10 @@ function handleUserQuery(userQuery, userQueryHTML) {
                   }
                 } catch (error) {
                   console.log('Error parsing product:', error)
+                // }
+                  assistantReply += responseToken // build up the assistant message
+                  displaySentence += responseToken // build up the display sentence
                 }
-                assistantReply += responseToken // build up the assistant message
-                displaySentence += responseToken // build up the display sentence
 
                 if (responseToken === '\n' || responseToken === '\n\n') {
                   speak(spokenSentence.trim())
