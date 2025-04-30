@@ -262,7 +262,7 @@ function handleUserQuery(userQuery, userQueryHTML) {
                     // console.log('product name:', product.product_name)
                     console.log(product, isObject(product), typeof product)
                     product.image_url = decodeURIComponent(product.image_url)
-                    image_url.replace(/%25/g, '%');
+                    product.image_url.replace(/%25/g, '%');
                     console.log(product.image_url);
                     if (product && product.image_url && isObject(product)) {
                       addProductToUI(product)
