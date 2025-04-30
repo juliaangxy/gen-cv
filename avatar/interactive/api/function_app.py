@@ -197,7 +197,7 @@ def get_product_information(user_question, categories='*', top_k=3):
     print('results_json', results_json)
     
     # Extracting the required fields from the results JSON
-    product_data = results_json['value'][2] # hard limit to top result for now
+    product_data = results_json['value'][0] # hard limit to top result for now
 
     response_data = {
         "product_name": product_data.get('name'),
@@ -247,7 +247,7 @@ def get_user_history(account_id):
         response_json = json.dumps({"order_history": "None"})
     else:
         # Extract product names from the results
-        products = [row for row in results]
+        products = results[0]
         response_json = json.dumps({"order_history": products})
 
     return response_json
@@ -579,7 +579,7 @@ async def stream_processor(response, messages):
                                 order_history = json.loads(function_response)
                                 function_response = order_history['order_history']
                                 try:
-                                    product_name = function_response[0]
+                                    product_name = function_response
                                     yield json.dumps(f'{"product": "{product_name}"}')
                                 except:
                                     pass
