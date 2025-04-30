@@ -638,8 +638,13 @@ function addProductToUI(productInfo) {
   const decodedImageUrl = decodeURIComponent(productInfo.image_url.replace(/%25/g, '%'));
   console.log('addProductToUI', productInfo)
   console.log('addProductToUI image url', decodedImageUrl)
+
+  // Append the product card to the chat history or a specific container
+  const chatHistory = document.getElementById('chathistory'); // Replace with your container ID
+  // chatHistory.innerHTML += productCardHTML;
   // const newDiv = document.createElement('div');
   // newDiv.innerHTML = `
+  var productCardHTML = "<div class="product-card"></div>"
   // var productCardHTML = 
   // `<div class="product-card">
   //     <img src="${decodedImageUrl}" alt="Product Image" class="product-card__image" />
@@ -651,23 +656,21 @@ function addProductToUI(productInfo) {
   //       </p>
   //     </div>
   //   </div>`;
-
-  // Append the product card to the chat history or a specific container
-  const chatHistory = document.getElementById('chathistory'); // Replace with your container ID
-  // chatHistory.innerHTML += productCardHTML;
-  chatHistory.innerHTML += `
-  <div class="product-card">
-    <img src="${decodedImageUrl}" alt="Product Image" class="product-card__image" />
-    <div class="product-card__content">
-      <h3 class="product-card__tagline">${productInfo.tagline}</h3>
-      <p class="product-card__points">
-        <span class="product-card__old-points">Original Points: ${productInfo.original_points}</span>
-        <span class="product-card__special-offer">Special Offer: ${productInfo.special_offer}</span>
-      </p>
-    </div>
-  </div>`; 
+  chatHistory.innerHTML += productCardHTML
+  var productCardHTML = `
+  <img src="${decodedImageUrl}" alt="Product Image" class="product-card__image">
+  <div class="product-card__content"></div>`
+  chatHistory.innerHTML += productCardHTML
+  var productCardHTML = `
+  <h3 class="product-card__tagline">${productInfo.tagline}</h3>
+  <p class="product-card__points"></p>`
+  chatHistory.innerHTML += productCardHTML
+  var productCardHTML = `
+  <span class="product-card__old-points">Original Points: ${productInfo.original_points}</span>
+  <span class="product-card__special-offer">Special Offer: ${productInfo.special_offer}</span>`
+  chatHistory.innerHTML += productCardHTML
   // chatHistory.appendChild(newDiv);
-  // Scroll to the bottom of the chat history
+//   // Scroll to the bottom of the chat history
   chatHistory.scrollTop = chatHistory.scrollHeight;
 }
 
