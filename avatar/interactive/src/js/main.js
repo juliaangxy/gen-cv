@@ -261,7 +261,8 @@ function handleUserQuery(userQuery, userQueryHTML) {
                     if (product && product.image_url && isObject(product)) {
                       addProductToUI(product)
                       console.log('product added to UI:', product)
-                      responseToken = JSON.stringify(parts[1])
+                      responseToken = parts[1]
+                      displaySentence = responseToken
                       console.log('responseToken:', responseToken)
                     // fetch('/api/get-product-info', {
                     //   method: 'POST',
