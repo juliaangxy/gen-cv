@@ -638,7 +638,9 @@ function addProductToUI(productInfo) {
   const decodedImageUrl = decodeURIComponent(productInfo.image_url.replace(/%25/g, '%'));
   console.log('addProductToUI', productInfo)
   console.log('addProductToUI image url', decodedImageUrl)
-  const productCardHTML = `
+  const newDiv = document.createElement('div');
+  // const productCardHTML = `
+  newDiv.innerHTML = `
     <div class="product-card">
       <img src="${decodedImageUrl}" alt="Product Image" class="product-card__image" />
       <div class="product-card__content">
@@ -653,8 +655,8 @@ function addProductToUI(productInfo) {
 
   // Append the product card to the chat history or a specific container
   const chatHistory = document.getElementById('chathistory'); // Replace with your container ID
-  chatHistory.innerHTML += productCardHTML;
-
+  // chatHistory.innerHTML += productCardHTML;
+  chatHistory.appendChild(newDiv);
   // Scroll to the bottom of the chat history
   chatHistory.scrollTop = chatHistory.scrollHeight;
 }
