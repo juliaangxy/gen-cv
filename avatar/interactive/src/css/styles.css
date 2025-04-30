@@ -707,36 +707,36 @@ input:checked+.slider:before {
     max-width: 300px;
   }
   
-  .product-card__image {
-    width: 200px;
-    height: 200px;
-    border-radius: 8px;
-  }
-  
-  .product-card__content {
-    margin-top: 10px;
-  }
-  
-  .product-card__tagline {
-    font-size: 12px;
-    font-weight: bold;
-    margin: 0;
-    word-wrap: break-word; /* Ensures long words wrap */
-    overflow-wrap: break-word; /* Modern equivalent for word wrapping */
-  }
-  
-  .product-card__points {
-    margin-top: 8px;
-    font-size: 10px;
-  }
-  
-  .product-card__old-points {
-    text-decoration: line-through;
-    color: #888;
-  }
-  
-  .product-card__special-offer {
-    font-weight: bold;
-    color: #28a745;
-    margin-left: 5px;
-  }
+.product-card__image {
+width: 200px;
+height: 200px;
+border-radius: 8px;
+}
+
+.product-card__content {
+margin-top: 10px;
+}
+
+.product-card__tagline {
+font-size: 12px;
+font-weight: bold;
+margin: 0;
+word-wrap: break-word; /* Ensures long words wrap */
+overflow-wrap: break-word; /* Modern equivalent for word wrapping */
+}
+
+.product-card__points {
+margin-top: 8px;
+font-size: 10px;
+}
+
+.product-card__old-points {
+text-decoration: line-through;
+color: #888;
+}
+
+.product-card__special-offer {
+font-weight: bold;
+color: #28a745;
+margin-left: 5px;
+}
