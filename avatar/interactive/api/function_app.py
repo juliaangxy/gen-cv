@@ -556,6 +556,15 @@ async def stream_processor(response, messages):
                                 except:
                                     pass
 
+                            if function_to_call ==  get_user_history:
+                                order_history = json.loads(function_response)
+                                function_response = order_history['order_history']
+                                try:
+                                    product_name = function_response[0]
+                                    yield json.dumps(f'{"product": "{product_name}"}')
+                                except:
+                                    pass
+
                             # if function_to_call == bing_web_search:
                             #     web_info = json.loads(function_response)
                             #     function_response = web_info['message']
