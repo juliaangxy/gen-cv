@@ -641,7 +641,6 @@ function addProductToUI(productInfo) {
     <div class="product-card">
       <img src="${productInfo.image_url}" alt="Product Image" class="product-card__image" />
       <div class="product-card__content">
-        <h2 class="product-card__title">${productInfo.product_name}</h2>
         <h3 class="product-card__tagline">${productInfo.tagline}</h3>
         <p class="product-card__points">
           <span class="product-card__old-points">Original Points: ${productInfo.original_points}</span>
