@@ -250,11 +250,29 @@ function handleUserQuery(userQuery, userQueryHTML) {
                   if (responseToken && responseToken.trim() !== "null") {
                     product = JSON.parse(responseToken);
                   }
+
                   console.log(product, isObject(product), typeof product)
                   if (product && product.image_url && isObject(product)) {
-                    addProductToChatHistory(product)
+                    addProductToUI(product)
                     console.log('product:', product)
                     responseToken = ''
+                    // fetch('/api/get-product-info', {
+                    //   method: 'POST',
+                    //   headers: {
+                    //     'Content-Type': 'application/json',
+                    //   },
+                    //   body: JSON.stringify({
+                    //     product_name: product.name, // Pass the product name or other details
+                    //     product_id: product.id,     // Include the product ID if available
+                    //   }),
+                    // })
+                    //   .then(response => response.json())
+                    //   .then(productInfo => {
+                    //     addProductToUI(productInfo);
+                    //   })
+                    //   .catch(error => {
+                    //     console.error('Error fetching product info:', error);
+                    //   })
                   }
                 } catch (error) {
                   console.log('Error parsing product:', error)
@@ -589,22 +607,26 @@ function addToConversationHistory(item, historytype) {
   list.appendChild(newItem);
 }
 
-function addProductToChatHistory(product) {
-  const list = document.getElementById('chathistory');
-  const listItem = document.createElement('li');
-  listItem.classList.add('product');
-  listItem.innerHTML = `
-    <fluent-card class="product-card">
-      <div class="product-card__header">
-        <img src="${product.image_url}" alt="tent" width="100%">
-      </div>
+function addProductToUI(productInfo) {
+  const productCardHTML = `
+    <div class="product-card">
+      <img src="${productInfo.image_url}" alt="Product Image" class="product-card__image" />
       <div class="product-card__content">
-        <div><span class="product-card__points">$${product.special_offer}</span> <span class="product-card__old-points">$${product.original_points}</span></div>
-        <div>${product.tagline}</div>
+        <h3 class="product-card__tagline">${productInfo.tagline}</h3>
+        <p class="product-card__points">
+          <span class="product-card__old-points">Original Points: ${productInfo.original_points}</span>
+          <span class="product-card__special-offer">Special Offer: ${productInfo.special_offer}</span>
+        </p>
       </div>
-    </fluent-card>
+    </div>
   `;
-  list.appendChild(listItem);
+
+  // Append the product card to the chat history or a specific container
+  const chatHistory = document.getElementById('chathistory'); // Replace with your container ID
+  chatHistory.innerHTML += productCardHTML;
+
+  // Scroll to the bottom of the chat history
+  chatHistory.scrollTop = chatHistory.scrollHeight;
 }
 
 // Make video background transparent by matting

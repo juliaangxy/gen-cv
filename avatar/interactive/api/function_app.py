@@ -277,10 +277,10 @@ def display_product_info(product_info, display_size=40):
     else:
         print(f"Failed to retrieve image. HTTP Status code: {response.status_code}")
 
-    print(f"""
-    {product_info['tagline']}
-    Original points: ${product_info['original_points']} Special offer: ${product_info['special_offer']} 
-    """)
+    logging.info(f"""
+    # {product_info['tagline']}
+    # Original points: ${product_info['original_points']} Special offer: ${product_info['special_offer']} 
+    # """)
 
 def generate_embeddings(text):
     """ Generate embeddings for an input string using embeddings API """
