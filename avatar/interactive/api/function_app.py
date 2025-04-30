@@ -46,6 +46,23 @@ tools = [
     {
         "type": "function",
         "function": {
+            "name": "get_user_history",
+            "description": "Check the products that the customer ordered in the past",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "account_id": {
+                        "type": "number",
+                        "description": "Four digit account number (i.e., 1005, 2345, etc.)"
+                    },
+                },
+                "required": ["account_id"],
+            }
+        }
+    },
+    {
+        "type": "function",
+        "function": {
             "name": "get_bonus_points",
             "description": "Check the amount of customer bonus / loyalty points",
             "parameters": {
@@ -191,6 +208,32 @@ def get_product_information(user_question, categories='*', top_k=3):
         "product_image_file": product_data.get('product_image_file'),
     }
     return json.dumps(response_data)
+
+def get_user_history(account_id):
+    """Retrieve user history for a given account ID."""
+     
+    # Define the SQL query to retrieve user history for the given account_id
+    query = "SELECT product_id FROM Orders WHERE account_id = ?"
+
+    # Execute the query with account_id as a parameter
+    results = execute_sql_query(query, params=(account_id,))
+
+    # If results are empty, return an error message in JSON format
+    if not results:
+        response_json = json.dumps({"order_history": "None"})
+    else:
+        products = []
+        for order in results:
+            # Get the order_id, product_id, and days_to_delivery values
+            order = order[1]
+            query = "SELECT name FROM Products WHERE id = ?"
+            params = (f'%{order}%',)
+            results = execute_sql_query(query, params=params)
+            products.append(results[0][0])
+        # Create a JSON object with the required keys and values
+        response_json = json.dumps({"order_history": str()})
+
+    return response_json
 
 def display_product_info(product_info, display_size=40):
     """ Display product information """
