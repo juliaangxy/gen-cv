@@ -1,0 +1,42 @@
+class ChatHistory extends HTMLElement {
+  constructor() {
+    super();
+    this.attachShadow({ mode: 'open' });
+  }
+
+  connectedCallback() {
+    this.shadowRoot.innerHTML = `
+      <style>
+        .chat-history {
+          max-height: 400px;
+          overflow-y: auto;
+          border: 1px solid #ccc;
+          padding: 10px;
+          border-radius: 8px;
+          background-color: #f9f9f9;
+        }
+      </style>
+      <div class="chat-history" id="chat-history"></div>
+    `;
+  }
+
+  addMessage(content, type) {
+    const chatHistory = this.shadowRoot.getElementById('chat-history');
+    const message = document.createElement('div');
+    message.className = `message message--${type}`;
+    message.textContent = content;
+    chatHistory.appendChild(message);
+    chatHistory.scrollTop = chatHistory.scrollHeight;
+  }
+
+  addProduct(productInfo) {
+    const chatHistory = this.shadowRoot.getElementById('chat-history');
+    const productCard = document.createElement('product-card');
+    productCard.setAttribute('data-product-info', JSON.stringify(productInfo));
+    chatHistory.appendChild(productCard);
+    chatHistory.scrollTop = chatHistory.scrollHeight;
+  }
+}
+
+// Define the custom element
+customElements.define('chat-history', ChatHistory);

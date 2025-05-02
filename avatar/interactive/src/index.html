@@ -3,6 +3,7 @@
 
 <head>
   <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Rewards Portal</title>
 
   <link href="./css/styles.css" rel="stylesheet" />
@@ -12,6 +13,8 @@
 
   <script type="module" src="https://unpkg.com/@fluentui/web-components@2.0.0"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+  <script type="module" src="src/js/components/ProductCard.js"></script>
+  <script type="module" src="src/js/components/ChatHistory.js"></script>
 </head>
 
 <body>
@@ -99,7 +102,8 @@
     </div>
 
     <div class="main-block">
-      <ul id="chathistory" class="chat-history"></ul>
+      <!-- <ul id="chathistory" class="chat-history"></ul> -->
+      <chat-history></chat-history>
     </div>
   </div>
 
