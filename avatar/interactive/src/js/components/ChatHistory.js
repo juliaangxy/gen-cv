@@ -8,12 +8,32 @@ class ChatHistory extends HTMLElement {
     this.shadowRoot.innerHTML = `
       <style>
         .chat-history {
-          max-height: 70%;
-          overflow-y: auto;
-          border: 1px solid #ccc;
-          padding: 10px;
-          border-radius: 8px;
-          background-color: #f9f9f9;
+            max-height: 50%;
+            overflow-y: auto;
+            padding: 10px;
+            border-radius: 8px;
+        }
+
+        .messages-container {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .message {
+            margin: 10px 0;
+            padding: 10px;
+            border-radius: 8px;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        .message--light {
+            background-color: #d8d8d8;
+        }
+
+        .message--dark {
+            background-color: black;
+            color: white;
         }
       </style>
       <div class="chat-history" id="chat-history"></div>
