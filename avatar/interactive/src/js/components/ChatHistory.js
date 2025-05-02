@@ -62,7 +62,7 @@ class ChatHistory extends HTMLElement {
     message.className = `message message--${type}`;
     message.textContent = content;
     chatHistory.appendChild(message);
-    chatHistory.scrollTop = chatHistory.scrollHeight;
+    this.scrollToBottom();
   }
 
   addProduct(productInfo) {
@@ -70,6 +70,11 @@ class ChatHistory extends HTMLElement {
     const productCard = document.createElement('product-card');
     productCard.setAttribute('data-product-info', JSON.stringify(productInfo));
     chatHistory.appendChild(productCard);
+    this.scrollToBottom();
+  }
+
+  scrollToBottom() {
+    const chatHistory = this.shadowRoot.getElementById('chat-history');
     chatHistory.scrollTop = chatHistory.scrollHeight;
   }
 }
