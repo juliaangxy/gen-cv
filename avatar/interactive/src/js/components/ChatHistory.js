@@ -8,7 +8,7 @@ class ChatHistory extends HTMLElement {
     this.shadowRoot.innerHTML = `
       <style>
         .chat-history {
-          max-height: 400px;
+          max-height: 70%;
           overflow-y: auto;
           border: 1px solid #ccc;
           padding: 10px;
@@ -19,6 +19,22 @@ class ChatHistory extends HTMLElement {
       <div class="chat-history" id="chat-history"></div>
     `;
   }
+
+// connectedCallback() {
+// this.shadowRoot.innerHTML = `
+//     <style>
+//     .chat-history {
+//         max-height: 400px;
+//         overflow-y: auto;
+//         border: 1px solid #ccc;
+//         padding: 10px;
+//         border-radius: 8px;
+//         background-color: #f9f9f9;
+//     }
+//     </style>
+//     <div class="chat-history" id="chat-history"></div>
+// `;
+// }
 
   addMessage(content, type) {
     const chatHistory = this.shadowRoot.getElementById('chat-history');

@@ -615,6 +615,10 @@ input:checked+.slider:before {
     border-radius: 5px;
     background-color: #f9f9f9;
     margin: 0; */
+    border: 1px solid #ccc;
+    padding: 10px;
+    border-radius: 8px;
+    background-color: #f9f9f9;
 }
 
 .chat-history li {
@@ -636,16 +640,31 @@ input:checked+.slider:before {
 
 .message {
     padding: 8px 16px 8px 16px;
+    margin: 5px 0;
+    border-radius: 8px;
+    font-size: 14px;
+    line-height: 1.5;
 }
 
 .message--light {
-    background-color: #F7F7F7;
+    /* background-color: #F7F7F7; */
+    background-color: #d8d8d8;
 }
 
 .message--dark {
     background-color: black;
     color: white;
     align-self: flex-end;
+}
+
+.message--warning {
+    background-color: #fff3cd;
+    color: #856404;
+}
+
+.message--error {
+    background-color: #f8d7da;
+    color: #721c24;
 }
 
 .product {
