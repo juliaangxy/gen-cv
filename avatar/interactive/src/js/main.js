@@ -607,31 +607,44 @@ window.submitText = () => {
   window.speak(document.getElementById('textinput').currentValue);
 }
 
-function addToConversationHistory(item, historytype) {
-  const list = document.getElementById('chathistory');
-  // if (list.children.length !== 0) {
-  //   const lastItem = list.lastChild;
-  //   console.log('List:', list);
-  //   console.log('Last item:', lastItem);
-  //   if (lastItem.classList.contains(`message--${historytype}`)) {
-  //     lastItem.textContent += `${item}`;
-  //     return;
-  //   }
-    if (list.children.length !== 0) {
-      const lastItem = list.children[list.children.length - 1]; // Get the last child element
-      console.log('Last item:', lastItem);
-      if (lastItem.classList.contains(`message--${historytype}`)) {
-        lastItem.textContent += `${item}`;
-        return;
-      } else {
-        lastItem.textContent += `\n`;
-      }
-    }
-  const newItem = document.createElement('li');
-  newItem.classList.add('message');
-  newItem.classList.add(`message--${historytype}`);
-  newItem.textContent = item;
-  list.appendChild(newItem);
+// function addToConversationHistory(item, historytype) {
+//   const list = document.getElementById('chathistory');
+//   // if (list.children.length !== 0) {
+//   //   const lastItem = list.lastChild;
+//   //   console.log('List:', list);
+//   //   console.log('Last item:', lastItem);
+//   //   if (lastItem.classList.contains(`message--${historytype}`)) {
+//   //     lastItem.textContent += `${item}`;
+//   //     return;
+//   //   }
+//     if (list.children.length !== 0) {
+//       const lastItem = list.children[list.children.length - 1]; // Get the last child element
+//       console.log('Last item:', lastItem);
+//       if (lastItem.classList.contains(`message--${historytype}`)) {
+//         lastItem.textContent += `${item}`;
+//         return;
+//       } else {
+//         lastItem.textContent += `\n`;
+//       }
+//     }
+//   const newItem = document.createElement('li');
+//   newItem.classList.add('message');
+//   newItem.classList.add(`message--${historytype}`);
+//   newItem.textContent = item;
+//   list.appendChild(newItem);
+// }
+
+function addToConversationHistory(item, historyType) {
+  // Select the <chat-history> Web Component
+  const chatHistory = document.querySelector('chat-history');
+  
+  if (!chatHistory) {
+    console.error('Error: <chat-history> element not found.');
+    return;
+  }
+
+  // Use the addMessage method of the <chat-history> Web Component
+  chatHistory.addMessage(item, historyType);
 }
 
 function addProductToUI(productInfo) {
