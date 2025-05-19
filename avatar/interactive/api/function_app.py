@@ -275,7 +275,7 @@ def display_product_info(product_info, display_size=40):
             "tagline": product_info['tagline'],
             "original_points": product_info['original_points'],
             "special_offer": product_info['special_offer'],
-            "image_url": quote(image_url, safe=":/?&=")
+            "image_url": quote(image_url, safe=":/?&")
             }
     else:
         print(f"Failed to retrieve image. HTTP Status code: {response.status_code}")
