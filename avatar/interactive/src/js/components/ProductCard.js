@@ -76,7 +76,7 @@ class ProductCard extends HTMLElement {
       const [key, value] = pair.split('=');
       // Only decode if not 'sig'
       if (key === 'sig') {
-        return `${key}=${value}`;
+        return `${key}=${value}%3D`;
       } else {
         return `${key}=${decodeURIComponent(value)}`;
       }
