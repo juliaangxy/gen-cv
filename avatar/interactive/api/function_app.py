@@ -263,13 +263,14 @@ def build_image_url(blob_sas_url, image_file):
     # Parse the query string into a dict (values remain encoded)
     query_params = parse_qs(parsed_url.query, keep_blank_values=True)
     # Flatten the values (parse_qs returns lists)
-    query_params = {k: v[0] for k, v in query_params.items()}
+    query_kv = {k: v[0] for k, v in query_params.items()}
     # Re-encode the query string (values stay encoded)
-    query_string = urlencode(query_params, safe=":/?&=")
+    query_string = urlencode(query_kv, safe=":/?&=")
     # Build the new image URL
     base_url = parsed_url.scheme + "://" + parsed_url.netloc + parsed_url.path
-    image_url = f"{base_url}/{image_file}?{query_string}"
-    return image_url
+    image_url = f"{base_url}/{image_file}?{parsed_url.query}"
+    encoded_image_url = f"{base_url}/{image_file}?{query_string}"
+    return image_url, encoded_image_url
 
 def display_product_info(product_info, display_size=40):
     """ Display product information """
@@ -277,8 +278,8 @@ def display_product_info(product_info, display_size=40):
     # Show image
     image_file = product_info['product_image_file']
     
-    image_url = build_image_url(blob_sas_url, image_file)
-    response = requests.get(image_url)
+    image_url_response = build_image_url(blob_sas_url, image_file)
+    response = requests.get(image_url_response[0])
     # print(image_url)
     #image_url remove whitespace
 
@@ -289,7 +290,7 @@ def display_product_info(product_info, display_size=40):
             "tagline": product_info['tagline'],
             "original_points": product_info['original_points'],
             "special_offer": product_info['special_offer'],
-            "image_url": image_url
+            "image_url": image_url_response[1]
             }
             # "image_url": quote(image_url, safe=":/?&")
     else:
