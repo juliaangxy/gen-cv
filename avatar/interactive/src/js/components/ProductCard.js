@@ -6,8 +6,8 @@ class ProductCard extends HTMLElement {
 
   connectedCallback() {
     const productInfo = JSON.parse(this.getAttribute('data-product-info'));
-    // const imageUrl = productInfo.image_url;
-    const decodedImageUrl = decodeURIComponent(productInfo.image_url).replace(/%25/g, '%').replace(/\+/g,'%2B').replace(/=/g, '%3D');
+    // Use the image_url as-is, do NOT decode or encode
+    const imageUrl = productInfo.image_url;
 
     this.shadowRoot.innerHTML = `
       <style>
@@ -54,7 +54,7 @@ class ProductCard extends HTMLElement {
         }
       </style>
       <div class="product-card">
-        <img src="${decodedImageUrl}" alt="Product Image" class="product-card__image" />
+        <img src="${imageUrl}" alt="Product Image" class="product-card__image" />
         <div class="product-card__content">
           <h3 class="product-card__tagline">${productInfo.tagline}</h3>
           <p class="product-card__points">

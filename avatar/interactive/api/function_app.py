@@ -10,7 +10,7 @@ import json
 import logging
 from datetime import datetime, timedelta
 from bs4 import BeautifulSoup
-from urllib.parse import quote
+from urllib.parse import quote, urlencode
 
 # from agentfile import bing_web_search
 
@@ -261,9 +261,21 @@ def display_product_info(product_info, display_size=40):
 
     # Show image
     image_file = product_info['product_image_file']
-
-    image_url = blob_sas_url.split("?")[0] + f"/{image_file}?" + blob_sas_url.split("?")[1]
     
+    image_url = blob_sas_url.split("?")[0] + f"/{image_file}?" + blob_sas_url.split("?")[1]
+    params = {
+        "sp": "r",
+        "st": "2025-05-23T15:54:34Z",
+        "se": "2027-05-23T23:54:34Z",
+        "spr": "https",
+        "sv": "2024-11-04",
+        "sr": "c",
+        "sig": "mmALCh2ReQDqlGT2vrZ3XKZi2NPO8NBJ04F/cQaR5Z8="
+    }
+
+    query_string = urlencode(params, safe=":/?")
+    image_url = f"{image_url}?{query_string}"
+
     response = requests.get(image_url)
     # print(image_url)
     #image_url remove whitespace
