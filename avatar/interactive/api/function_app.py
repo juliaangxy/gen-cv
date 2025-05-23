@@ -300,7 +300,7 @@ def display_product_info(product_info, display_size=40):
 {product_info['tagline']} 
 Original points: ${product_info['original_points']} 
 Special offer: ${product_info['special_offer']} 
-URL: {image_url}
+URL: {image_url_response[1]}
 """)
 
 def generate_embeddings(text):
