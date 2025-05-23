@@ -280,7 +280,7 @@ def display_product_info(product_info, display_size=40):
     
     image_url_response = build_image_url(blob_sas_url, image_file)
     response = requests.get(image_url_response[0])
-    # print(image_url)
+    print(image_url_response)
     #image_url remove whitespace
 
     # Check if the request was successful
