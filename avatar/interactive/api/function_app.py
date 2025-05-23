@@ -259,11 +259,11 @@ def get_user_history(account_id):
 def build_image_url(blob_sas_url, image_file):
     # Parse the original blob SAS URL
     parsed_url = urlparse(blob_sas_url)
-    # Parse the query string into a dict
-    query_params = parse_qs(parsed_url.query)
+    # Parse the query string into a dict (values remain encoded)
+    query_params = parse_qs(parsed_url.query, keep_blank_values=True)
     # Flatten the values (parse_qs returns lists)
     query_params = {k: v[0] for k, v in query_params.items()}
-    # Re-encode the query string
+    # Re-encode the query string (values stay encoded)
     query_string = urlencode(query_params, safe=":/?&=")
     # Build the new image URL
     base_url = parsed_url.scheme + "://" + parsed_url.netloc + parsed_url.path
