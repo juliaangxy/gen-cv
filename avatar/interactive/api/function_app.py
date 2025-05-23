@@ -10,7 +10,7 @@ import json
 import logging
 from datetime import datetime, timedelta
 from bs4 import BeautifulSoup
-from urllib.parse import quote, urlencode
+from urllib.parse import quote, urlencode, urlparse, parse_qs
 
 # from agentfile import bing_web_search
 
@@ -256,26 +256,27 @@ def get_user_history(account_id):
 
     return response_json
 
+def build_image_url(blob_sas_url, image_file):
+    # Parse the original blob SAS URL
+    parsed_url = urlparse(blob_sas_url)
+    # Parse the query string into a dict
+    query_params = parse_qs(parsed_url.query)
+    # Flatten the values (parse_qs returns lists)
+    query_params = {k: v[0] for k, v in query_params.items()}
+    # Re-encode the query string
+    query_string = urlencode(query_params, safe=":/?&=")
+    # Build the new image URL
+    base_url = parsed_url.scheme + "://" + parsed_url.netloc + parsed_url.path
+    image_url = f"{base_url}/{image_file}?{query_string}"
+    return image_url
+
 def display_product_info(product_info, display_size=40):
     """ Display product information """
 
     # Show image
     image_file = product_info['product_image_file']
     
-    image_url = blob_sas_url.split("?")[0] + f"/{image_file}?" + blob_sas_url.split("?")[1]
-    params = {
-        "sp": "r",
-        "st": "2025-05-23T15:54:34Z",
-        "se": "2027-05-23T23:54:34Z",
-        "spr": "https",
-        "sv": "2024-11-04",
-        "sr": "c",
-        "sig": "mmALCh2ReQDqlGT2vrZ3XKZi2NPO8NBJ04F/cQaR5Z8="
-    }
-
-    query_string = urlencode(params, safe=":/?")
-    image_url = f"{image_url}?{query_string}"
-
+    image_url = build_image_url(blob_sas_url, image_file)
     response = requests.get(image_url)
     # print(image_url)
     #image_url remove whitespace
