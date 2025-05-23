@@ -11,6 +11,7 @@ import logging
 from datetime import datetime, timedelta
 from bs4 import BeautifulSoup
 from urllib.parse import quote, urlencode, urlparse, parse_qs
+logging.basicConfig(level=logging.DEBUG)
 
 # from agentfile import bing_web_search
 
@@ -288,15 +289,18 @@ def display_product_info(product_info, display_size=40):
             "tagline": product_info['tagline'],
             "original_points": product_info['original_points'],
             "special_offer": product_info['special_offer'],
-            "image_url": quote(image_url, safe=":/?&")
+            "image_url": image_url
             }
+            # "image_url": quote(image_url, safe=":/?&")
     else:
         print(f"Failed to retrieve image. HTTP Status code: {response.status_code}")
 
     logging.info(f"""
-    # {product_info['tagline']}
-    # Original points: ${product_info['original_points']} Special offer: ${product_info['special_offer']} 
-    # """)
+{product_info['tagline']} 
+Original points: ${product_info['original_points']} 
+Special offer: ${product_info['special_offer']} 
+URL: {image_url}
+""")
 
 def generate_embeddings(text):
     """ Generate embeddings for an input string using embeddings API """
