@@ -8,7 +8,7 @@ class ProductCard extends HTMLElement {
     const productInfo = JSON.parse(this.getAttribute('data-product-info'));
     const imageUrl = productInfo.image_url;
     const decodedUrl = this.decodeQueryString(imageUrl);
-
+    console.log('Decoded URL:', decodedUrl);
     this.shadowRoot.innerHTML = `
       <style>
         .product-card {
