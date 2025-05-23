@@ -69,12 +69,20 @@ class ProductCard extends HTMLElement {
 
   decodeQueryString(url) {
     const [base, query] = url.split('?');
-    if (!query) return url; // No query string to decode
+    if (!query) return url;
 
-    // Decode only the query string part
-    const decodedQuery = decodeURIComponent(query);
+    // Split query string into key-value pairs
+    const params = query.split('&').map(pair => {
+      const [key, value] = pair.split('=');
+      // Only decode if not 'sig'
+      if (key === 'sig') {
+        return `${key}=${value}`;
+      } else {
+        return `${key}=${decodeURIComponent(value)}`;
+      }
+    });
 
-    return `${base}?${decodedQuery}`;
+    return `${base}?${params.join('&')}`;
   }
 }
 
