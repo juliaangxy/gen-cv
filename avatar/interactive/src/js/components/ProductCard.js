@@ -6,7 +6,8 @@ class ProductCard extends HTMLElement {
 
   connectedCallback() {
     const productInfo = JSON.parse(this.getAttribute('data-product-info'));
-    const decodedImageUrl = decodeURIComponent(productInfo.image_url)
+    const imageUrl = productInfo.image_url;
+    const decodedUrl = this.decodeQueryString(imageUrl);
 
     this.shadowRoot.innerHTML = `
       <style>
@@ -53,7 +54,7 @@ class ProductCard extends HTMLElement {
         }
       </style>
       <div class="product-card">
-        <img src="${decodedImageUrl}" alt="Product Image" class="product-card__image" />
+        <img src="${decodedUrl}" alt="Product Image" class="product-card__image" />
         <div class="product-card__content">
           <h3 class="product-card__tagline">${productInfo.tagline}</h3>
           <p class="product-card__points">
@@ -63,6 +64,16 @@ class ProductCard extends HTMLElement {
         </div>
       </div>
     `;
+  }
+
+  decodeQueryString(url) {
+    const [base, query] = url.split('?');
+    if (!query) return url; // No query string to decode
+
+    // Decode only the query string part
+    const decodedQuery = decodeURIComponent(query);
+
+    return `${base}?${decodedQuery}`;
   }
 }
 
